@@ -1,3 +1,13 @@
+# Présentation
+
+###Discord serveur
+Il s'agit d'un bot Discord custom Open Source
+Ses différentes fonctionnalitées sont renseignées ci-dessous, séparées en modules
+Lien du serveur Discord : https://discord.com/invite/G8hrncZ
+Lien de l'hébergeur internet : https://control.sparkedhost.us
+
+
+
 # Modules
 
 ### Fonctionnement
