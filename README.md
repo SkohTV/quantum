@@ -1,15 +1,15 @@
 # Présentation
 
 ### Serveur Discord
-Il s'agit d'un bot Discord custom Open Source
-Ses différentes fonctionnalitées sont renseignées ci-dessous, séparées en modules
-Lien du serveur Discord : https://discord.com/invite/G8hrncZ
-Lien de l'hébergeur internet : https://control.sparkedhost.us
+Il s'agit d'un bot Discord custom Open Source<br/>
+Ses différentes fonctionnalitées sont renseignées ci-dessous, séparées en modules<br/>
+Lien du serveur Discord : https://discord.com/invite/G8hrncZ<br/>
+Lien de l'hébergeur internet : https://control.sparkedhost.us<br/>
 
 ### Odyssey
-Il s'agit d'un projet de jeu RPG PvP
-Accessible exclusivement dans le serveur Discord de @Skoh
-Si sa popularité deviens importante, une interface internet sera concue
+Il s'agit d'un projet de jeu RPG PvP<br/>
+Accessible exclusivement dans le serveur Discord de @Skoh<br/>
+Si sa popularité deviens importante, une interface internet sera concue<br/>
 
 
 # Modules
