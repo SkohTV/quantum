@@ -1,4 +1,10 @@
-from flask import Flask#, render_template
+'''
+This script is outdated, because the bot isn't hosted on replit anymore
+Keeping this in case of need for future script
+If you plan on using python replit, consider this script to keep it alive
+'''
+
+from flask import Flask #, render_template
 from threading import Thread
 
 # Keep the script running

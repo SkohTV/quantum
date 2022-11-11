@@ -2,13 +2,14 @@
 IMPORTS
 '''
 
-
 import discord
 from discord import app_commands
 from discord.ext import commands
 
 import os 
+from sty import fg, ef, rs # Colors https://sty.mewo.dev
 
+from source.printC import F
 from source.ids import ids
 
 module_name = os.path.dirname(os.path.realpath(__file__)).split("\\")[-1]
@@ -25,7 +26,7 @@ class Bonjour(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_ready(self):
-		print('Cog loaded -> {} / {}'.format(module_name,command_name))
+		print(F(fg(0, 135, 36) + 'Cog loaded' + fg.rs + ef.bold + ' ->' + rs.bold_dim + ' {} / {}'.format(module_name,command_name)))
 
 
 	### CUSTOMIZATION START HERE

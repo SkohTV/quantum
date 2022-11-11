@@ -22,16 +22,18 @@ def convert():
 	pfp_bot = "https://cdn.discordapp.com/avatars/1033842126334742659/5235b0f44210455555f1685cac3580b9.png?size=1024"
 	
 	pfp_creator = "https://cdn.discordapp.com/avatars/373055398464323584/cf5191bff3d90119c78fc7156d1e32ef.png?size=1024"
-	github_link = "https://github.com/SkohTV/Quantum"
+	github_link = "https://github.com/SkohTV/Quantum"	
+	footer_text = "Made by @Skoh#9999"
+
 	timestamp = datetime.now()
 
 
 	
 	### CHANGE ###
 	
-	version = "v1.0.0-alpha"
+	version = "v1.1.0-alpha"
 
-	update_name = "Naissance"
+	update_name = "Croissance"
 
 	
 	field['Nouveautés'] = '''
@@ -57,8 +59,8 @@ def convert():
 	embed.title = f'{update_name} - {version}'
 	embed.description = '\u200e'
 	embed.colour = colour
-	embed.set_author(name=author_name, icon_url=pfp_bot)
-	embed.set_footer(text=github_link, icon_url=pfp_creator)
+	embed.set_author(name=author_name, url=github_link, icon_url=pfp_bot)
+	embed.set_footer(text=footer_text, icon_url=pfp_creator)
 	embed.timestamp = timestamp
 	for i in field:
 		embed.add_field(name=i, value=field[i], inline=False)

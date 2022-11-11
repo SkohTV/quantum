@@ -2,13 +2,14 @@
 IMPORTS
 '''
 
-
 import discord
+from discord import app_commands
 from discord.ext import commands
 
 import os 
-from sty import fg, ef, rs
+from sty import fg, ef, rs # Colors https://sty.mewo.dev
 
+from source.printC import F
 from source.ids import ids
 
 module_name = "MAIN"
@@ -25,9 +26,8 @@ class Autosync(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_ready(self):
-		print('Cog loaded -> {} / {}'.format(module_name,command_name))
-		print('')
-		print(ef.bold + fg(212,175,55) + 'Monitoring...' + fg.rs + rs.bold_dim)
+		print(F(fg(0, 135, 36) + 'Cog loaded' + fg.rs + ef.bold + ' ->' + rs.bold_dim + ' {} / {}'.format(module_name,command_name)))
+
 
 	@commands.command()
 	async def sync(self,ctx) -> None:
