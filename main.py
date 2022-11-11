@@ -2,7 +2,8 @@
 IMPORTS
 '''
 
-print('\n\n')
+print(' ')
+print(' ')
 import pip
 from source.printC import F
 
@@ -48,15 +49,15 @@ Delta = 'stable' if stable, 'unstable' if bug known, 'new' if new patch (for 1 w
 
 @bot.event
 async def on_ready():
-	print('')
+	print(' ')
 	print(F('Logged with username ' + fg(0,255,0) + bot.user.name + fg.rs))
 	print(F('Logged with userID ' + fg(0,255,255) + str(bot.user.id) + fg.rs))
 	print(F('Discord module version is ' + fg(0,255,255) + str(discord.__version__) + fg.rs))
-	print('')
+	print(' ')
 	print(F(fg(255,0,0) + ef.underl + 'Servers connected to:' + rs.underl + fg.rs))
 	for guild in bot.guilds:
 		print(F('- ' + guild.name))
-	print('')
+	print(' ')
 	print(F(ef.bold + fg(212,175,55) + 'Cogs loading...' + fg.rs + rs.bold_dim))
 	await bot.change_presence(activity=discord.Game(name=bot_version))
 
@@ -101,7 +102,7 @@ try:
 		TOKEN = [line.rstrip() for line in file][0]
 except FileNotFoundError:
 	print(F(fg(255,0,0) + ef.bold + 'No TOKEN.txt file found' + fg.rs + rs.bold_dim + ', please provide the id here : '))
-	TOKEN = getpass()
+	TOKEN = getpass('')
 print(F("Connecting to Discord API..."))
 
 
@@ -111,7 +112,7 @@ async def main():
 		await load_random()
 		await load_main()
 		await bot.start(TOKEN)
-		print('')
+		print(' ')
 		print(F(ef.bold + fg(212,175,55) + 'Monitoring...' + fg.rs + rs.bold_dim))
 
 
