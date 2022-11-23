@@ -22,12 +22,19 @@ import_or_install('discord')
 
 
 import asyncio
+import os
+import threading
+
+import time
+from pathlib import Path
 from getpass import getpass
 from sty import fg, ef, rs # Colors https://sty.mewo.dev
 
 # https://discordpy.readthedocs.io/en/stable/api.html
 import discord
 from discord.ext import commands
+
+from source import check
 
 
 '''
@@ -39,12 +46,12 @@ intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='q!', case_insensitive=True, intents=intents)
 
 # WHEN START
-bot_version = "v1.0.3-stable"
+bot_version = "v1.2.0-new"
 """A.B.C
 A = Very big additions (Birth, Odyssey)
 B = Multiple new additions
 C = Added new working addition
-Delta = 'stable' if stable, 'unstable' if bug known, 'new' if new patch (for 1 week)
+Delta = 'stable' if stable, 'dev' if Quantum Dev , 'unstable' if bug known, 'new' if new patch (for 1 week)
 """
 
 @bot.event
@@ -60,6 +67,7 @@ async def on_ready():
 	print(' ')
 	print(F(ef.bold + fg(212,175,55) + 'Cogs loading...' + fg.rs + rs.bold_dim))
 	await bot.change_presence(activity=discord.Game(name=bot_version))
+	threading.Thread(target=post_start).start()
 
 
 '''
@@ -69,6 +77,7 @@ LOADING COMMANDS
 # MAIN MODULE
 async def load_main():
 	await bot.load_extension("source.modules.autosync") #Load sync command
+	await bot.load_extension("source.check") #Load autocheck code
 	return
 
 # RANDOM MODULE
@@ -91,6 +100,7 @@ TESTING ZONE
 
 
 
+
 '''
 ENDING
 '''
@@ -98,7 +108,7 @@ ENDING
 # Check if TOKEN.txt exist, if not ask for manual bot token
 # TOKEN.txt is not only on my personnal computer, this script is for convenience when restarts
 try:
-	with open('../../Identifiants/TOKEN.txt') as file:
+	with open('../../Identifiants/TOKEN.TXT', 'r') as file:
 		TOKEN = [line.rstrip() for line in file][0]
 except FileNotFoundError:
 	print(F(fg(255,0,0) + ef.bold + 'No TOKEN.txt file found' + fg.rs + rs.bold_dim + ', please provide the id here : '))
@@ -111,9 +121,16 @@ async def main():
 		await load_autopost()
 		await load_random()
 		await load_main()
-		await bot.start(TOKEN)
 		print(' ')
-		print(F(ef.bold + fg(212,175,55) + 'Monitoring...' + fg.rs + rs.bold_dim))
+		await bot.start(TOKEN)
+
+
+def post_start():
+	time.sleep(1)
+	print(' ')
+	print(F(ef.bold + fg(212,175,55) + 'Monitoring...' + fg.rs + rs.bold_dim))
+	#threading.Thread(target=check.autocheck).start()
+		
 
 
 asyncio.run(main())

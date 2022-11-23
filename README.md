@@ -30,21 +30,22 @@ Si sa popularité deviens importante, une interface internet sera concue<br/>
 ## Random
 *Blablabla*
 
-⚪️ `/bonjour "[user]" "[channel]"` : Renvoi un "bonjour", exclusivité de l'alpha ✅<br/>
-⚪️ `/cyanure [force] ` : Vous inflige une sanction à vous même, exclusivité de l'alpha ⏳<br/>
-⚪️ `/help` : Renvoi la liste des modules, et redirige vers `/help [module]` ⛔️<br/>
-⚪️ `/help [module]` : Renvoi de l'aide sur un module précis ⛔️<br/>
 🔴 `/changelog` : Post le patch note des changements de la dernière version du bot ✅<br/>
-\- Post automatiquement un meme dans #memes une fois par jour à 18h
+⚪️ `/help "[module]"` : Renvoi de l'aide sur un module précis ⛔️<br/>
+⚪️ `/bonjour "[user]" "[channel]"` : Renvoi un "bonjour", exclusivité de la v1 ✅<br/>
+⚪️ `/cyanure [force]` : Vous inflige une sanction à vous même, exclusivité de la v1 ✅<br/>
+\- Post automatiquement un meme dans #memes une fois par jour à 18h ⛔️
 
 
 
 ## Post / Partenaires
 *Blablabla*
 
-🔵 `/post [type] [ytb_link]` : Post video template ou stream template dans #actus-video✅<br/>
+🔵 `/post [type] [ytb_link]` : Poste un message d'annonce dans #actus-video✅<br/>
 🟢 `/ppost` : Permet au partenaires de post un message de leur choix dans #partenaire ⛔️<br/>
 ⚪️ `/pprofile [user] "[🟢param]"` : Affiche/modifie le profile d'un partenaire (embed) ⛔️<br/>
+\- Auto post videos/streams/clips dans salon #actus-video
+\- Auto post partenaires dans salon #partenaire
 
 
 

@@ -12,10 +12,14 @@ from sty import fg, ef, rs # Colors https://sty.mewo.dev
 from source.printC import F
 from source.ids import ids
 
-import source.changelog.file1 as shortcut # Change HERE
+import source.changelog.file2 as shortcut # Change HERE
 
-module_name = os.path.dirname(os.path.realpath(__file__)).split("\\")[-1]
-command_name = os.path.realpath(__file__).split("\\")[-1].split(".")[0]
+if '/' in os.path.dirname(os.path.realpath(__file__)):
+	module_name = os.path.dirname(os.path.realpath(__file__)).split("/")[-1]
+	command_name = os.path.realpath(__file__).split("/")[-1].split(".")[0]
+else:
+	module_name = os.path.dirname(os.path.realpath(__file__)).split("\\")[-1]
+	command_name = os.path.realpath(__file__).split("\\")[-1].split(".")[0]
 
 
 '''

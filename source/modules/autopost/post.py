@@ -12,8 +12,12 @@ from sty import fg, ef, rs # Colors https://sty.mewo.dev
 from source.printC import F
 from source.ids import ids
 
-module_name = os.path.dirname(os.path.realpath(__file__)).split("\\")[-1]
-command_name = os.path.realpath(__file__).split("\\")[-1].split(".")[0]
+if '/' in os.path.dirname(os.path.realpath(__file__)):
+	module_name = os.path.dirname(os.path.realpath(__file__)).split("/")[-1]
+	command_name = os.path.realpath(__file__).split("/")[-1].split(".")[0]
+else:
+	module_name = os.path.dirname(os.path.realpath(__file__)).split("\\")[-1]
+	command_name = os.path.realpath(__file__).split("\\")[-1].split(".")[0]
 
 
 '''
@@ -36,17 +40,20 @@ class Post(commands.Cog):
 	description="Post une annonce de stream/vidéo dans le salon aquédat")
 	@app_commands.describe(preset="Type d'annonce à faire", url="Url du contenu Youtube")
 	@app_commands.choices(preset=[
-		discord.app_commands.Choice(name="Youtube", value=1),
-		discord.app_commands.Choice(name="Twitch", value=2),
+		discord.app_commands.Choice(name="Vidéo", value="Vidéo"),
+		discord.app_commands.Choice(name="Stream", value="Stream"),
+		discord.app_commands.Choice(name="Stream", value="Clip"),
 	])
 	@app_commands.checks.has_any_role(ids.role_admin)
-	async def post(self, interaction: discord.Interaction, preset: discord.app_commands.Choice[int], url: str):
+	async def post(self, interaction: discord.Interaction, preset: discord.app_commands.Choice[str], url: str):
 		if interaction.channel_id in ids.bot_channels:
 			channel_video = await self.bot.fetch_channel(ids.channel_video)
-			if (preset.value == 1):
-				to_send = "Hey @everyone, **Skoh** a publié une nouvelle vidéo\n:arrow_right: {}".format(url)
-			elif (preset.value == 2):
-				to_send = "Hey @everyone, **SkohTV** est en live !!\n\n\n**-->** <https://twitch.tv/SkohTV>\n**-->** {}".format(url)		
+			if (preset.value == "Vidéo"):
+				to_send = "Hey @everyone, **Skoh** a publié une nouvelle vidéo !\n:arrow_right: {}".format(url)
+			elif (preset.value == "Stream"):
+				to_send = "Hey @everyone, **Skoh** est en live !!\n\n\n**-->** <https://twitch.tv/SkohTV>\n**-->** {}".format(url)
+			elif (preset.value == "Clip"):
+				to_send = "Hey, **Skoh** à posté un nouveau clip\n:arrow_right: {}".format(url)		
 			await channel_video.send(to_send)
 			await interaction.response.send_message(":white_check_mark: __Message envoyé__ **->** <#{}>".format(channel_video.id))
 

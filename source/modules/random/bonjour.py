@@ -12,8 +12,12 @@ from sty import fg, ef, rs # Colors https://sty.mewo.dev
 from source.printC import F
 from source.ids import ids
 
-module_name = os.path.dirname(os.path.realpath(__file__)).split("\\")[-1]
-command_name = os.path.realpath(__file__).split("\\")[-1].split(".")[0]
+if '/' in os.path.dirname(os.path.realpath(__file__)):
+	module_name = os.path.dirname(os.path.realpath(__file__)).split("/")[-1]
+	command_name = os.path.realpath(__file__).split("/")[-1].split(".")[0]
+else:
+	module_name = os.path.dirname(os.path.realpath(__file__)).split("\\")[-1]
+	command_name = os.path.realpath(__file__).split("\\")[-1].split(".")[0]
 
 
 '''
