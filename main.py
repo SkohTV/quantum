@@ -60,7 +60,7 @@ async def main():
     data.setup_token()
     async with bot:
         for filename in os.listdir('commands'): # Iterate through file of commands
-            bot.load_extension(f"commands.{filename}") # Add command to cog
+            await bot.load_extension(f"commands.{filename}") # Add command to cog
         print(' ')
         await bot.start(data.TOKEN)
 
