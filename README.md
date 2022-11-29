@@ -4,9 +4,8 @@ https://discord.com/invite/G8hrncZ<br/>
 
 
 ## To-do
-✔️ Menu upload PDP<br/>
-❌ Menu création de session<br/>
-❌ Réorganisation des fichier<br/>
+✔️<br/>
+⌛ Réorganisation des fichier<br/>
 ❌ pprofile<br/>
 ❌ ppost<br/>
 ❌ Convert post to autopost<br/>
