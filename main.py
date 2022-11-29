@@ -27,7 +27,6 @@ import data
 from src.printer import printer
 
 
-
 '''
 ON BOT START
 '''
