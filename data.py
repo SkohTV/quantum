@@ -49,7 +49,7 @@ bot_channels = [975450909729505390, 919305979085074482]
 """
 Functions to setup login informations
 """
-def setup_token() -> bool:
+def setup_token():
     """Grab bot token from file or stdin
 
     Returns:

@@ -20,4 +20,4 @@ def logger(text:str, *specific:str) -> None:
     if len(specific) == 0:
         print("{} {}".format(time, text))
     elif specific[0] == 'err':
-        print("{} {}".format(time, fg(255,0,0) + text + fg.rs))
+        print("{} {}".format(fg(255,0,0) + time + fg.rs, fg(255,0,0) + text + fg.rs))

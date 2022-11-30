@@ -65,6 +65,7 @@ async def main():
     print(' ')
     print(' ')
     data.setup_token() # Initiate bot token (modify data.TOKEN externally)
+    return
     #async with bot:
     for filename in os.listdir('commands'): # Iterate through file of commands
         if not (filename=="__pycache__"):
