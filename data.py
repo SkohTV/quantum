@@ -1,28 +1,29 @@
-'''
+"""
 Imports
-'''
-from src.printer import printer
+"""
+from src.logger import logger
 from getpass import getpass
 from sty import ef, fg, rs
 
 
-'''
-Main informations
-'''
-TOKEN = str() # Value will be set by main.py with function setup_token()
-login = 'dev'
-version = '1.2.0'
-"""A.B.C
-A = Very big additions (Birth, Odyssey)
-B = Multiple new additions
-C = Added new working addition
-delta = 'stable' for public or 'dev' for private
 """
+Main informations
+"""
+def setup_after():
+    global login, version
+    login = 'dev'
+    version = '1.2.0'
+    """A.B.C
+    A = Very big additions (Birth, Odyssey)
+    B = Multiple new additions
+    C = Added new working addition
+    delta = 'stable' for public or 'dev' for private
+    """
 
 
-'''
+"""
 Discord ids for easy access and/or addition
-'''
+"""
 # ROLES
 role_admin = 373070011507408896
 role_modo = 452184740238327808
@@ -45,27 +46,23 @@ channel_changelog = 1034911855933669376
 bot_channels = [975450909729505390, 919305979085074482]
 
 
-'''
+"""
 Functions to setup login informations
-'''
+"""
 def setup_token() -> bool:
-    global TOKEN
-    """
-        Initialize the bot token
-    Parameters
-    ----------
-        None
-    Returns
-    ----------
-        valid : bool
-            Return True if token valid, else return False
+    """Grab bot token from file or stdin
+
+    Returns:
+        bool: True if token valid, else return False
     """
     # Check if TOKEN.txt exist, if not ask for manual bot token
     # TOKEN.txt is not only on my personnal computer, this script is for convenience when restarts
+    global TOKEN
+    setup_after()
     try:
         with open('../../Identifiants/TOKEN.TXT', 'r') as file:
             TOKEN = [line.rstrip() for line in file][0]
     except FileNotFoundError:
-        printer(fg(255,0,0) + ef.bold + 'No TOKEN.txt file found' + fg.rs + rs.bold_dim + ', please provide the id here : ')
+        logger(fg(255,0,0) + ef.bold + 'No TOKEN.txt file found' + fg.rs + rs.bold_dim + ', please provide the id here : ')
         TOKEN = getpass('')
-    printer("Connecting to Discord API...")
+    logger("Connecting to Discord API...")
