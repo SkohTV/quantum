@@ -53,6 +53,7 @@ async def on_ready():
         logger('- ' + guild.name)
     print(' ')
     logger(ef.bold + fg(212,175,55) + 'Cogs loading...' + fg.rs + rs.bold_dim)
+    # Last setups with the on_ready event not logs related
     bot_version = f'v{data.version}-{data.login}' # Get version from data file
     await bot.change_presence(activity=discord.Game(name=bot_version)) # Initiate discord bot status message
     threading.Thread(target=post_start).start() # Start end of code post_start
@@ -65,11 +66,11 @@ async def main():
     print(' ')
     print(' ')
     data.setup_token() # Initiate bot token (modify data.TOKEN externally)
-    return
-    #async with bot:
+    #async with bot: # I have no clue what this is
     for filename in os.listdir('commands'): # Iterate through file of commands
         if not (filename=="__pycache__"):
             await bot.load_extension(f"commands.{filename[:-3]}") # Add commands to cog on by one
+    await bot.load_extension("src.autosync") # Load sync method to sync commands to the tree
     print(' ')
     await bot.start(data.TOKEN) # Start the bot with the token
 
