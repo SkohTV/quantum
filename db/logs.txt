@@ -1,0 +1,3 @@
+[2022-12-02 12:31:05] [38;2;255;0;0m[1mNo TOKEN.txt file found[39m[22m, please provide the id here : 
+[2022-12-02 12:31:09] Connecting to Discord API...
+[2022-12-02 12:37:39] [38;2;255;0;0m[1mNo TOKEN.txt file found[39m[22m, please provide the id here : 

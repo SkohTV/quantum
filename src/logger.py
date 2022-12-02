@@ -16,8 +16,12 @@ def logger(text:str, *specific:str) -> None:
     """
     now = str(datetime.now())
     time = f'[{now[0:4]}-{now[5:7]}-{now[8:10]} {now[11:13]}:{now[14:16]}:{now[17:19]}]'
-
+    f = open("db/logs.txt", "a")
     if len(specific) == 0:
-        print("{} {}".format(time, text))
+        message = ("{} {}".format(time, text))
     elif specific[0] == 'err':
-        print("{} {}".format(fg(255,0,0) + time + fg.rs, fg(255,0,0) + text + fg.rs))
+        message = ("{} {}".format(fg(255,0,0) + time + fg.rs, fg(255,0,0) + text + fg.rs))
+    print(message)
+    message.encode()
+    f.write(message+'\n')
+    f.close()
