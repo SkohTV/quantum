@@ -4,14 +4,15 @@ https://discord.com/invite/G8hrncZ<br/>
 
 
 ## To-do
-✔️<br/>
-⌛ Réorganisation des fichier<br/>
+<br/>
+✔️ Réorganisation des fichier<br/>
+⌛ Rework checks<br/>
+⌛ cyanure</br>
+⌛ Convert post to autopost<br/>
+⌛ Autopost memes<br/>
 ❌ pprofile<br/>
 ❌ ppost<br/>
-❌ Convert post to autopost<br/>
 ❌ Autopost pour partenaires<br/>
-❌ Autopost memes<br/>
-❌ Rework checks<br/>
 ❌ help<br/>
 ❌ Add external logs to discord channel<br/>
 
@@ -22,11 +23,12 @@ Blablabla
 ### **Commands**
 - `/bonjour [user] [channel]` -> Send "Bonjour" the user in channel
 - `/changelog <version>` -> Send changelog in channel
-- `/cyanure <force>` -> Apply sanction to self
+- `/cyanure <force>` -> Apply sanction to self ⌛
 - `/post <type> <ytb_link>` -> Post video/stream alert in channel
+- `/ping` -> Reply with delay between interactions
 
 ### **Modules**
-- **Auto-run** -> Every X set of time, do actions in loop
+- **Auto-run** -> Every X set of time, do actions in loop ⌛
 
 
 ## Contact
