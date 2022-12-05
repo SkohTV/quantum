@@ -75,7 +75,7 @@ async def main():
     await bot.start(data.TOKEN) # Start the bot with the token
 
 def post_start():
-    time.sleep(1)
+    time.sleep(2)
     print(' ')
     logger(ef.bold + fg(212,175,55) + 'Monitoring...' + fg.rs + rs.bold_dim)
         

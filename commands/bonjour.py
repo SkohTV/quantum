@@ -42,16 +42,20 @@ class Bonjour(commands.Cog):
 
     # Command definition
     async def bonjour(self, interaction: discord.Interaction, user: discord.Member = None, channel: discord.TextChannel = None):
-        try:
-            if interaction.channel_id in data.bot_channels:
-                if (user == None):
-                    user = interaction.user
-                if (channel == None):
-                    await interaction.response.send_message("Bonjour <@{}>".format(user.id))
-                else:
-                    await channel.send("Bonjour <@{}>".format(user.id))
-                    await interaction.response.send_message(":white_check_mark: __Message envoyé__ **->** <#{}>".format(channel.id))
-        except Exception as E:
+        try: # Error catcher try
+            if not interaction.channel_id in data.bot_channels: # Check if bot in right channel
+                return
+            
+            # Core command code
+            if (user == None):
+                user = interaction.user
+            if (channel == None):
+                await interaction.response.send_message("Bonjour <@{}>".format(user.id))
+            else:
+                await channel.send("Bonjour <@{}>".format(user.id))
+                await interaction.response.send_message(":white_check_mark: __Message envoyé__ **->** <#{}>".format(channel.id))
+
+        except Exception as E: # Error catcher except
             logger(E, 'err')
 
 

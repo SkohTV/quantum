@@ -47,18 +47,22 @@ class Post(commands.Cog):
     
     # Command definition
     async def post(self, interaction: discord.Interaction, preset: discord.app_commands.Choice[str], url: str):
-        try:
-            if interaction.channel_id in data.bot_channels:
-                channel_video = await self.bot.fetch_channel(data.channel_video)
-                if (preset.value == "Vidéo"):
-                    to_send = "Hey @everyone, **Skoh** a publié une nouvelle vidéo !\n:arrow_right: {}".format(url)
-                elif (preset.value == "Stream"):
-                    to_send = "Hey @everyone, **Skoh** est en live !!\n\n\n**-->** <https://twitch.tv/SkohTV>\n**-->** {}".format(url)
-                elif (preset.value == "Clip"):
-                    to_send = "Hey, **Skoh** à posté un nouveau clip\n:arrow_right: {}".format(url)        
-                await channel_video.send(to_send)
-                await interaction.response.send_message(":white_check_mark: __Message envoyé__ **->** <#{}>".format(channel_video.id))
-        except Exception as E:
+        try: # Error catcher try
+            if not interaction.channel_id in data.bot_channels: # Check if bot in right channel
+                return
+            
+            # Core command code
+            channel_video = await self.bot.fetch_channel(data.channel_video)
+            if (preset.value == "Vidéo"):
+                to_send = "Hey @everyone, **Skoh** a publié une nouvelle vidéo !\n:arrow_right: {}".format(url)
+            elif (preset.value == "Stream"):
+                to_send = "Hey @everyone, **Skoh** est en live !!\n\n\n**-->** <https://twitch.tv/SkohTV>\n**-->** {}".format(url)
+            elif (preset.value == "Clip"):
+                to_send = "Hey, **Skoh** à posté un nouveau clip\n:arrow_right: {}".format(url)        
+            await channel_video.send(to_send)
+            await interaction.response.send_message(":white_check_mark: __Message envoyé__ **->** <#{}>".format(channel_video.id))
+
+        except Exception as E: # Error catcher except
             logger(E, 'err')
 
 

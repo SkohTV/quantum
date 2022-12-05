@@ -31,15 +31,11 @@ class Autosync(commands.Cog):
             fmt = await self.bot.tree.sync(guild=item) # Sync all commands to tree
             # Print to console
             command_name = os.path.realpath(__file__).split("/")[-1].split("\\")[-1].split(".")[0]
-            logger(fg(0, 135, 36) + 'Cog loaded' + fg.rs + ef.bold + ' ->' + rs.bold_dim + ' {}'.format(command_name))
+            logger(fg(0, 135, 36) + 'Method loaded' + fg.rs + ef.bold + ' ->' + rs.bold_dim + ' {}'.format(command_name))
             logger(f"Synced {len(fmt)} commands to the current guild.")
             return
         except Exception as E:
             print(E)
-            
-    @app_commands.command(name="aaa")
-    async def sync(self, ctx):
-        pass
 
 
 # Smol cog class, as the module is imported as a cog for easier async call

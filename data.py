@@ -47,20 +47,28 @@ bot_channels = [975450909729505390, 919305979085074482]
 
 
 """
+Exported informations (links, names, pfp, permanent texts...)
+"""
+class Emb: # For changelog.py
+    bot_name = "Quantum"
+    colour = 11900928
+    author_name = "Quantum"
+    pfp_bot = "https://cdn.discordapp.com/avatars/1033842126334742659/5235b0f44210455555f1685cac3580b9.png?size=1024"
+    pfp_creator = "https://cdn.discordapp.com/avatars/373055398464323584/cf5191bff3d90119c78fc7156d1e32ef.png?size=1024"
+    github_link = "https://github.com/SkohTV/Quantum-bot"    
+    footer_text = "Made by @Skoh#9999"
+
+
+"""
 Functions to setup login informations
 """
 def setup_token():
-    """Grab bot token from file or stdin
-
-    Returns:
-        bool: True if token valid, else return False
-    """
     # Check if TOKEN.txt exist, if not ask for manual bot token
     # TOKEN.txt is not only on my personnal computer, this script is for convenience when restarts
     global TOKEN
     setup_after()
     try:
-        with open('../../Identifiants/TOKEN.TXT', 'r') as file:
+        with open('../../Identifiants/TOKEN.txt', 'r') as file:
             TOKEN = [line.rstrip() for line in file][0]
     except FileNotFoundError:
         logger(fg(255,0,0) + ef.bold + 'No TOKEN.txt file found' + fg.rs + rs.bold_dim + ', please provide the id here : ')
