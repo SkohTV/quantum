@@ -1,11 +1,12 @@
 # Quantum
 Open source Discord bot, running on Skoh's Discord server<br>
-https://discord.com/invite/G8hrncZ<br/>
+Maintained by [@SkohTV](https://github.com/SkohTV)<br/>
 
 
 ## To-do
 <br/>
 ✔️ Réorganisation des fichier<br/>
+⌛ Remove CSV -> Use GoogleAPI<br/>
 ⌛ Rework checks<br/>
 ⌛ cyanure</br>
 ⌛ Convert post to autopost<br/>
