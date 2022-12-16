@@ -11,7 +11,7 @@ Action
 """
 # MUST HAVE
 import os
-import data
+from data import Ids
 from sty import ef, fg, rs
 from src.logger import logger
 
@@ -42,25 +42,21 @@ class Bonjour(commands.Cog):
 
     # Command definition
     async def bonjour(self, interaction: discord.Interaction, user: discord.Member = None, channel: discord.TextChannel = None):
-        try: # Error catcher try
-            if not interaction.channel_id in data.bot_channels: # Check if bot in right channel
-                return
-            
-            # Core command code
-            if (user == None):
-                user = interaction.user
-            if (channel == None):
-                await interaction.response.send_message("Bonjour <@{}>".format(user.id))
-            else:
-                await channel.send("Bonjour <@{}>".format(user.id))
-                await interaction.response.send_message(":white_check_mark: __Message envoyé__ **->** <#{}>".format(channel.id))
+        if not interaction.channel_id in Ids.bot_channels: # Check if bot in right channel
+            return
 
-        except Exception as E: # Error catcher except
-            logger(E, 'err')
+        # Core command code
+        if (user == None):
+            user = interaction.user
+        if (channel == None):
+            await interaction.response.send_message("Bonjour <@{}>".format(user.id))
+        else:
+            await channel.send("Bonjour <@{}>".format(user.id))
+            await interaction.response.send_message(":white_check_mark: __Message envoyé__ **->** <#{}>".format(channel.id))
 
 
 """
 Cog setup
 """
 async def setup(bot):
-    await bot.add_cog(Bonjour(bot), guilds=[discord.Object(id=data.guild_main)])
+    await bot.add_cog(Bonjour(bot), guilds=[discord.Object(id=Ids.guild_main)])

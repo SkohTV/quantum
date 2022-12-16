@@ -11,7 +11,7 @@ Action
 """
 # MUST HAVE
 import os
-import data
+from data import Ids
 from sty import ef, fg, rs
 from src.logger import logger
 
@@ -33,7 +33,7 @@ class Post(commands.Cog):
     async def on_ready(self):
         command_name = os.path.realpath(__file__).split("/")[-1].split("\\")[-1].split(".")[0]
         logger(fg(0, 135, 36) + 'Cog loaded' + fg.rs + ef.bold + ' ->' + rs.bold_dim + ' {}'.format(command_name))
-        
+
 
     # Command decorator
     @app_commands.command(name="post", description="Post une annonce de stream/vidéo dans le salon aquédat")
@@ -43,31 +43,27 @@ class Post(commands.Cog):
         discord.app_commands.Choice(name="Stream", value="Stream"),
         discord.app_commands.Choice(name="Clip", value="Clip"),
     ])
-    @app_commands.checks.has_any_role(data.role_admin)
-    
+    @app_commands.checks.has_any_role(Ids.role_admin)
+
     # Command definition
     async def post(self, interaction: discord.Interaction, preset: discord.app_commands.Choice[str], url: str):
-        try: # Error catcher try
-            if not interaction.channel_id in data.bot_channels: # Check if bot in right channel
-                return
-            
-            # Core command code
-            channel_video = await self.bot.fetch_channel(data.channel_video)
-            if (preset.value == "Vidéo"):
-                to_send = "Hey @everyone, **Skoh** a publié une nouvelle vidéo !\n:arrow_right: {}".format(url)
-            elif (preset.value == "Stream"):
-                to_send = "Hey @everyone, **Skoh** est en live !!\n\n\n**-->** <https://twitch.tv/SkohTV>\n**-->** {}".format(url)
-            elif (preset.value == "Clip"):
-                to_send = "Hey, **Skoh** à posté un nouveau clip\n:arrow_right: {}".format(url)        
-            await channel_video.send(to_send)
-            await interaction.response.send_message(":white_check_mark: __Message envoyé__ **->** <#{}>".format(channel_video.id))
+        if not interaction.channel_id in Ids.bot_channels: # Check if bot in right channel
+            return
 
-        except Exception as E: # Error catcher except
-            logger(E, 'err')
+        # Core command code
+        channel_video = await self.bot.fetch_channel(Ids.channel_video)
+        if (preset.value == "Vidéo"):
+            to_send = "Hey @everyone, **Skoh** a publié une nouvelle vidéo !\n:arrow_right: {}".format(url)
+        elif (preset.value == "Stream"):
+            to_send = "Hey @everyone, **Skoh** est en live !!\n\n\n**-->** <https://twitch.tv/SkohTV>\n**-->** {}".format(url)
+        elif (preset.value == "Clip"):
+            to_send = "Hey, **Skoh** à posté un nouveau clip\n:arrow_right: {}".format(url)        
+        await channel_video.send(to_send)
+        await interaction.response.send_message(":white_check_mark: __Message envoyé__ **->** <#{}>".format(channel_video.id))
 
 
 """
 Cog class
 """
 async def setup(bot):
-    await bot.add_cog(Post(bot), guilds=[discord.Object(id=data.guild_main)])
+    await bot.add_cog(Post(bot), guilds=[discord.Object(id=Ids.guild_main)])

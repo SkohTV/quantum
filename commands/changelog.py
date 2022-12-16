@@ -11,7 +11,7 @@ Action
 """
 # MUST HAVE
 import os
-import data
+from data import Ids
 from sty import ef, fg, rs
 from src.logger import logger
 
@@ -43,63 +43,60 @@ class Changelog(commands.Cog):
     description="Envoyer le changelog d'une version dans un salon")
     @app_commands.describe(version="Version du changelog à envoyer", channel="Channel dans lequel envoyer le changelog")
     @app_commands.choices(version=[discord.app_commands.Choice(name=i, value=i) for i in json.load(open('db/changelog.json', 'r', encoding='utf-8'))]) # Create a choice for all index in json file
-    @app_commands.checks.has_any_role(data.role_admin)
+    @app_commands.checks.has_any_role(Ids.role_admin)
+
     # Command definition
     async def changelog(self, interaction: discord.Interaction, version: str, channel: discord.TextChannel):
-        try: # Error catcher try
-            if not interaction.channel_id in data.bot_channels: # Check if bot in right channel
-                return
-            
-            # Core command code
-            # Open changelog.json
-            with open('db/changelog.json', 'r', encoding='utf-8') as f:
-                memory = json.load(f)
-            memory = memory[version]
+        if not interaction.channel_id in Ids.bot_channels: # Check if bot in right channel
+            return
 
-            # Create embed
-            embed=discord.Embed()
-            fields = dict()
+        # Core command code
+        # Open changelog.json
+        with open('db/changelog.json', 'r', encoding='utf-8') as f:
+            memory = json.load(f)
+        memory = memory[version]
 
-            # Imports from changelog.json
-            version_bot = version
-            update_name = memory['title']
-            fields = memory['fields']
+        # Create embed
+        embed=discord.Embed()
+        fields = dict()
 
-            # Permanent informations
-            bot_name = Emb.bot_name
-            colour = Emb.colour
-            author_name = Emb.author_name
-            pfp_bot = Emb.pfp_bot
-            pfp_creator = Emb.pfp_creator
-            github_link = Emb.github_link   
-            footer_text = Emb.footer_text
+        # Imports from changelog.json
+        version_bot = version
+        update_name = memory['title']
+        fields = memory['fields']
 
-            # Formatting
-            embed.title = f'{update_name} - {version_bot}'
-            embed.description = '\u200e'
-            embed.colour = colour
-            embed.description = f'[{github_link}]({github_link})\n\u200e'
-            embed.set_author(name=author_name, icon_url=pfp_bot)
-            embed.set_footer(text=footer_text, icon_url=pfp_creator)
-            for i in fields:
-                string = str()
-                for j in fields[i]:
-                    string += j+"\n"
-                embed.add_field(name=i, value=string, inline=False)
-            timestamp = datetime.now()
-            embed.timestamp = timestamp
-            
-            # Send message
-            to_send = embed
-            await channel.send(embed=to_send)
-            await interaction.response.send_message(":white_check_mark: __Message envoyé__ **->** <#{}>".format(channel.id))
+        # Permanent informations
+        bot_name = Emb.bot_name
+        colour = Emb.colour
+        author_name = Emb.author_name
+        pfp_bot = Emb.pfp_bot
+        pfp_creator = Emb.pfp_creator
+        github_link = Emb.github_link   
+        footer_text = Emb.footer_text
 
-        except Exception as E: # Error catcher except
-            logger(E, 'err')
+        # Formatting
+        embed.title = f'{update_name} - {version_bot}'
+        embed.description = '\u200e'
+        embed.colour = colour
+        embed.description = f'[{github_link}]({github_link})\n\u200e'
+        embed.set_author(name=author_name, icon_url=pfp_bot)
+        embed.set_footer(text=footer_text, icon_url=pfp_creator)
+        for i in fields:
+            string = str()
+            for j in fields[i]:
+                string += j+"\n"
+            embed.add_field(name=i, value=string, inline=False)
+        timestamp = datetime.now()
+        embed.timestamp = timestamp
+
+        # Send message
+        to_send = embed
+        await channel.send(embed=to_send)
+        await interaction.response.send_message(":white_check_mark: __Message envoyé__ **->** <#{}>".format(channel.id))
 
 
 """
 Cog setup
 """
 async def setup(bot):
-    await bot.add_cog(Changelog(bot), guilds=[discord.Object(id=data.guild_main)])
+    await bot.add_cog(Changelog(bot), guilds=[discord.Object(id=Ids.guild_main)])
