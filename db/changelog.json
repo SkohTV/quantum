@@ -63,7 +63,8 @@
             "Dev": [
                 "- Réécriture quasi intégrale",
                 "- Publication du code source sur Github",
-                "- Création et management de database json et csv",
+                "- Création et management de database json et Google",
+                "- Intégration via GoogleAPI",
                 "\u200e"]
         }
     }
