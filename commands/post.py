@@ -55,7 +55,7 @@ class Post(commands.Cog):
         if (preset.value == "Vidéo"):
             to_send = "Hey @everyone, **Skoh** a publié une nouvelle vidéo !\n:arrow_right: {}".format(url)
         elif (preset.value == "Stream"):
-            to_send = "Hey @everyone, **Skoh** est en live !!\n\n\n**-->** <https://twitch.tv/SkohTV>\n**-->** {}".format(url)
+            to_send = "Hey @here, **Skoh** est en live !!\n\n\n**-->** <https://twitch.tv/SkohTV>\n**-->** {}".format(url)
         elif (preset.value == "Clip"):
             to_send = "Hey, **Skoh** à posté un nouveau clip\n:arrow_right: {}".format(url)        
         await channel_video.send(to_send)
