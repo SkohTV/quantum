@@ -1,4 +1,4 @@
-API_KEY = "AIzaSyApj1kQNarN3h5TkWwHJoTzvC5GJH9_cek"
+API_KEY = ""
 
 # -*- coding: utf-8 -*-
 
