@@ -9,6 +9,7 @@ import os
 from data import Ids
 from sty import ef, fg, rs
 from src.logger import logger
+from src.verify import verify
 
 import discord
 from discord import app_commands
@@ -35,7 +36,10 @@ class Ping(commands.Cog):
 
     # Command definition
     async def ping(self, interaction: discord.Interaction):
-        if not interaction.channel_id in Ids.bot_channels: # Check if bot in right channel
+
+        isAllowed = verify(guild=interaction.guild, channel=interaction.channel, command=os.path.realpath(__file__).split("/")[-1].split("\\")[-1].split(".")[0])
+        if not isAllowed[0]: # Check if command is allowed
+            await interaction.response.send_message(isAllowed[1])
             return
 
         # Core command code
@@ -44,8 +48,8 @@ class Ping(commands.Cog):
         second = datetime.now().timestamp()
         third = interaction.created_at.timestamp()#replace(tzinfo=None)# + timedelta(hours=1)
         delay = round((second - first)*1000,2)
-        delay2 = round((third - first)*1000,1)
-        await interaction.edit_original_response(content="Discord Bot ⇒ `{}ms`\nDiscord Websocket ⇒ `{}ms`".format(delay2, delay))
+        delay2 = round((first - third)*1000,1)
+        await interaction.edit_original_response(content="Discord Bot ⇒ `{}ms`\nDiscord Servers ⇒ `{}ms`".format(delay2, delay))
 
 
 """

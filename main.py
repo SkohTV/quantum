@@ -23,7 +23,7 @@ import threading
 import os
 import time
 
-import data
+from data import Login, Setup
 from src.logger import logger
 
 
@@ -54,7 +54,7 @@ async def on_ready():
     print(' ')
     logger(ef.bold + fg(212,175,55) + 'Cogs loading...' + fg.rs + rs.bold_dim)
     # Last setups with the on_ready event not logs related
-    bot_version = f'v{data.version}-{data.login}' # Get version from data file
+    bot_version = f'v{Setup.version}-{Setup.login}' # Get version from data file
     await bot.change_presence(activity=discord.Game(name=bot_version)) # Initiate discord bot status message
     threading.Thread(target=post_start).start() # Start end of code post_start
 
@@ -65,14 +65,20 @@ ENDING
 async def main():
     print(' ')
     print(' ')
-    data.setup_token() # Initiate bot token (modify data.TOKEN externally)
+    Login.setup_token() # Initiate bot token (modify data.TOKEN externally)
     #async with bot: # I have no clue what this is
+
     for filename in os.listdir('commands'): # Iterate through file of commands
-        if not (filename=="__pycache__"):
-            await bot.load_extension(f"commands.{filename[:-3]}") # Add commands to cog on by one
-    await bot.load_extension("src.autosync") # Load sync method to sync commands to the tree
+        if not (filename=="__pycache__" or os.path.isdir('commands/'+filename)):
+            await bot.load_extension(f"commands.{filename[:-3]}") # Load cogs commands
+
+    for filename in os.listdir('auto'): # Iterate through file of methods
+        if not (filename=="__pycache__" or os.path.isdir('commands/'+filename)):
+            await bot.load_extension(f"commands.{filename[:-3]}") # Load cogs methods
+
     print(' ')
-    await bot.start(data.TOKEN) # Start the bot with the token
+    await bot.start(Login.TOKEN) # Start the bot with the token
+
 
 def post_start():
     time.sleep(2)

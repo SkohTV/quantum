@@ -14,6 +14,7 @@ import os
 from data import Ids
 from sty import ef, fg, rs
 from src.logger import logger
+from src.verify import verify
 
 import discord
 from discord import app_commands
@@ -43,11 +44,18 @@ class Changelog(commands.Cog):
     description="Envoyer le changelog d'une version dans un salon")
     @app_commands.describe(version="Version du changelog à envoyer", channel="Channel dans lequel envoyer le changelog")
     @app_commands.choices(version=[discord.app_commands.Choice(name=i, value=i) for i in json.load(open('db/changelog.json', 'r', encoding='utf-8'))]) # Create a choice for all index in json file
+    @app_commands.choices(channel=[
+        discord.app_commands.Choice(name="🔐devs-bot", value="🔐devs-bot"),
+        discord.app_commands.Choice(name="📚changelog", value="📚changelog")
+    ])
     @app_commands.checks.has_any_role(Ids.role_admin)
 
     # Command definition
-    async def changelog(self, interaction: discord.Interaction, version: str, channel: discord.TextChannel):
-        if not interaction.channel_id in Ids.bot_channels: # Check if bot in right channel
+    async def changelog(self, interaction: discord.Interaction, version: str, channel: str):
+
+        isAllowed = verify(guild=interaction.guild, channel=interaction.channel, user=interaction.user, command=os.path.realpath(__file__).split("/")[-1].split("\\")[-1].split(".")[0])
+        if not isAllowed[0]: # Check if command is allowed
+            await interaction.response.send_message(isAllowed[1], ephemeral=True)
             return
 
         # Core command code
@@ -78,7 +86,7 @@ class Changelog(commands.Cog):
         embed.title = f'{update_name} - {version_bot}'
         embed.description = '\u200e'
         embed.colour = colour
-        embed.description = f'[{github_link}]({github_link})\n\u200e'
+        embed.url = github_link
         embed.set_author(name=author_name, icon_url=pfp_bot)
         embed.set_footer(text=footer_text, icon_url=pfp_creator)
         for i in fields:
@@ -91,8 +99,9 @@ class Changelog(commands.Cog):
 
         # Send message
         to_send = embed
-        await channel.send(embed=to_send)
-        await interaction.response.send_message(":white_check_mark: __Message envoyé__ **->** <#{}>".format(channel.id))
+        channel_obj = self.bot.get_channel(Ids.channel_dev) if channel == "🔐devs-bot" else self.bot.get_channel(Ids.channel_changelog)
+        await channel_obj.send(embed=to_send)
+        await interaction.response.send_message(":white_check_mark: __Message envoyé__ **->** <#{}>".format(channel_obj.id))
 
 
 """

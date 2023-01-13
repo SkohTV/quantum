@@ -1,44 +1,59 @@
-API_KEY = ""
-
-# -*- coding: utf-8 -*-
-
-# Sample Python code for youtube.playlistItems.list
-# See instructions for running these code samples locally:
-# https://developers.google.com/explorer-help/code-samples#python
 import googleapiclient.discovery
+from data import Login
 import json
 
-def ytb_connect():
+
+
+
+def ytb_connect(API_KEY: str):
+    """_summary_
+
+    Args:
+        API_KEY (str): _description_
+
+    Returns:
+        _type_: _description_
+    """
     api_service_name, api_version, DEVELOPER_KEY = "youtube", "v3", API_KEY
     youtube = googleapiclient.discovery.build(api_service_name, api_version, developerKey = DEVELOPER_KEY)
     return youtube
 
-def ytb_request_playlist(youtube: googleapiclient.discovery.Resource, maxResults: int, playlistId: str):
+def ytb_request(youtube: googleapiclient.discovery.Resource, maxResults: int, playlistId: str):
+    """_summary_
+
+    Args:
+        youtube (googleapiclient.discovery.Resource): _description_
+        maxResults (int): _description_
+        playlistId (str): _description_
+    """
     request = youtube.playlistItems().list(
-        part="snippet",
-        maxResults=maxResults,
+        part='snippet',
+        maxResults=20,
         playlistId=playlistId
     )
     response = request.execute()
+    z = json.load(open("video_info.json", "r+"))
+
     for item in response["items"]:
-        print(item["snippet"]["title"])
-    return response
+        if not item["snippet"]["channelTitle"] in z["Ytb"]:
+            z["Ytb"].update({
+                item["snippet"]["channelTitle"] : []
+                })
 
-def ytb_request_direct(youtube: googleapiclient.discovery.Resource, maxResults: int, channelId: str):
-    global API_KEY
-    request = youtube.liveBroadcasts().list(
-        part='id,snippet,contentDetails',
-        broadcastStatus='active',
-        broadcastType='all',
-        key=API_KEY
-    )
-    response = request.execute()
-    return response
+        if not any(d["id"] == item["snippet"]["resourceId"]["videoId"] for d in z["Ytb"][item["snippet"]["channelTitle"]]):
+            video_info = youtube.videos().list(part='snippet,contentDetails',id=item['snippet']['resourceId']['videoId']).execute()
+            z["Ytb"][item["snippet"]["channelTitle"]].append({
+                "title": item["snippet"]["title"],
+                "kind": "short" if ("#short" in item["snippet"]["title"]) else ("upcoming" if video_info['items'][0]["snippet"]["liveBroadcastContent"] == "upcoming" else "video"),
+                "posted": "False",
+                "id" : item["snippet"]["resourceId"]["videoId"],
+                "liveBroadcastContent": video_info['items'][0]["snippet"]["liveBroadcastContent"]
+                })
+
+    json.dump(z, open("video_info.json", "w+"))
 
 
 
 
-youtube = ytb_connect()
-ytb_request_playlist(youtube, 5, "UULFZEnrtgLG2qb3k7eWjuhacw")
-ytb_request_playlist(youtube, 5, "PLFZfkJ-Hknm-S6UoD1IScocIk8rhkoLp2")
-ytb_request_direct(youtube, 5, "UCLFZEnrtgLG2qb3k7eWjuhacw")
+
+ytb_request(ytb_connect(Login.API_KEY), 20, "UUZEnrtgLG2qb3k7eWjuhacw")

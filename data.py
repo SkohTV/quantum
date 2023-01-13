@@ -9,16 +9,18 @@ from sty import ef, fg, rs
 """
 Main informations
 """
-def setup_after():
-    global login, version
-    login = 'dev'
-    version = '1.2.0'
-    """A.B.C
-    A = Very big additions (Birth, Odyssey)
-    B = Multiple new additions
-    C = Added new working addition
-    delta = 'stable' for public or 'dev' for private
-    """
+class Setup:
+    login, version = None, None
+    def setup_after():
+        global login, version
+        login = 'dev'
+        version = '1.2.0'
+        """A.B.C
+        A = Very big additions (Birth, Odyssey)
+        B = Multiple new additions
+        C = Added new working addition
+        delta = 'stable' for public or 'dev' for private
+        """
 
 
 """
@@ -63,15 +65,32 @@ class Emb: # For changelog.py
 """
 Functions to setup login informations
 """
-def setup_token():
-    # Check if TOKEN.txt exist, if not ask for manual bot token
-    # TOKEN.txt is not only on my personnal computer, this script is for convenience when restarts
-    global TOKEN
-    setup_after()
-    try:
-        with open('../../Identifiants/TOKEN.txt', 'r') as file:
-            TOKEN = [line.rstrip() for line in file][0]
-    except FileNotFoundError:
-        logger(fg(255,0,0) + ef.bold + 'No TOKEN.txt file found' + fg.rs + rs.bold_dim + ', please provide the id here : ')
-        TOKEN = getpass('')
-    logger("Connecting to Discord API...")
+class Login:
+    TOKEN = None
+    API_KEY = None
+
+    def setup_token():
+        # Check if TOKEN.txt exist, if not ask for manual bot token
+        # TOKEN.txt is not only on my personnal computer, this script is for convenience when restarts
+        global TOKEN
+        Setup.setup_after()
+        try:
+            with open('../../Identifiants/TOKEN.txt', 'r') as file:
+                TOKEN = [line.rstrip() for line in file][0]
+        except FileNotFoundError:
+            logger(fg(255,0,0) + ef.bold + 'No TOKEN.txt file found' + fg.rs + rs.bold_dim + ', please provide the token here : ')
+            TOKEN = getpass('')
+        logger("Connecting to Discord API...")
+
+    def setup_api_key():
+        # Check if API_KEY.txt exist, if not ask for manual google api key
+        # API_KEY.txt is not only on my personnal computer, this script is for convenience when restarts
+        global API_KEY
+        Setup.setup_after()
+        try:
+            with open('../../Identifiants/API_KEY.txt', 'r') as file:
+                API_KEY = [line.rstrip() for line in file][0]
+        except FileNotFoundError:
+            logger(fg(255,0,0) + ef.bold + 'No API_KEY.txt file found' + fg.rs + rs.bold_dim + ', please provide the api key here : ')
+            API_KEY = getpass('')
+        logger("Connecting to Google API...")
