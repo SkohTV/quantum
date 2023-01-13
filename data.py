@@ -70,8 +70,8 @@ def setup_token():
     setup_after()
     try:
         with open('../../Identifiants/TOKEN.txt', 'r') as file:
-            TOKEN = file.readline().rstrip()
+            TOKEN = [line.rstrip() for line in file][0]
     except FileNotFoundError:
-        logger(fg(255,0,0) + ef.bold + 'No TOKEN.txt file found' + fg.rs + rs.bold_dim + ', please provide the Bot Secret here : ')
+        logger(fg(255,0,0) + ef.bold + 'No TOKEN.txt file found' + fg.rs + rs.bold_dim + ', please provide the id here : ')
         TOKEN = getpass('')
     logger("Connecting to Discord API...")
