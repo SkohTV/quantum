@@ -33,27 +33,56 @@ class Setup:
 """
 Discord ids for easy access and/or addition
 """
-# ROLES
 class Ids:
-    role_admin = 373070011507408896
-    role_modo = 452184740238327808
-    role_partenaire = 919308144348381264
+    # Groups
+    role_admin = int(os.environ.get("role_admin"))
+    role_dev = int(os.environ.get("role_dev"))
+    role_modo = int(os.environ.get("role_modo"))
+    role_partenaire = int(os.environ.get("role_partenaire"))
+    role_donateur = int(os.environ.get("role_donateur"))
+    role_bot = int(os.environ.get("role_bot"))
+    role_global = int(os.environ.get("role_global"))
+    # Specific
+    role_admin_S = int(os.environ.get("role_admin_S"))
+    role_dev_S = int(os.environ.get("role_dev_S"))
+    role_modo_S = int(os.environ.get("role_modo_S"))
+    role_helper_S = int(os.environ.get("role_helper_S"))
+    role_ytb_S = int(os.environ.get("role_ytb_S"))
+    role_partenaire_S = int(os.environ.get("role_partenaire_S"))
+    role_boost_S = int(os.environ.get("role_boost_S"))
+    role_patreon_S = int(os.environ.get("role_patreon_S"))
+    role_old_S = int(os.environ.get("role_old_S"))
+    role_muted_S = int(os.environ.get("role_muted_S"))
+    role_cluster_S = int(os.environ.get("role_cluster_S"))
+    # Unique
+    role_338223786916577281_U = int(os.environ.get("role_338223786916577281_U"))
+    role_351397964700188674_U = int(os.environ.get("role_351397964700188674_U"))
+    role_432683071393759242_U = int(os.environ.get("role_432683071393759242_U"))
+    role_706976352150225088_U = int(os.environ.get("role_706976352150225088_U"))
 
-    role_xp = 406559409431642132
-    role_donate = 723609867625168961
-    role_cluster = 920074335237062718
+    # Guilds
+    guild_main = int(os.environ.get("guild_main"))
+    # Unlisted
+    channel_log = int(os.environ.get("channel_log"))
+    channel_bot_private = int(os.environ.get("channel_bot_private"))
+    channel_dev = int(os.environ.get("channel_dev"))
+    # Infos
+    channel_rules = int(os.environ.get("channel_rules"))
+    channel_ytb = int(os.environ.get("channel_ytb"))
+    channel_partner = int(os.environ.get("channel_partner"))
+    channel_news = int(os.environ.get("channel_news"))
+    channel_changelog = int(os.environ.get("channel_changelog"))
+    # General
+    channel_general = int(os.environ.get("channel_general"))
+    channel_general_vip = int(os.environ.get("channel_general_vip"))
+    channel_animes = int(os.environ.get("channel_animes"))
+    channel_memes = int(os.environ.get("channel_memes"))
+    channel_bot_public = int(os.environ.get("channel_bot_public"))
+    #Private
+    channel_contact_staff = int(os.environ.get("channel_contact_staff"))
+    channel_private_staff = int(os.environ.get("channel_private_staff"))
+    channel_private_partner = int(os.environ.get("channel_private_partner"))
 
-    role_global = 919287553495019530
-    role_mute = 463418347246321664
-
-
-    # CHANNELS
-    guild_main = 373056630004383744
-
-    channel_video = 420970924678840321
-    channel_dev = 975449902584840202
-    channel_changelog = 1034911855933669376
-    bot_channels = [975450909729505390, 919305979085074482]
 
 
 """

@@ -4,32 +4,30 @@ Maintained by [@SkohTV](https://github.com/SkohTV)<br/>
 
 
 ## To-do
-<br/>
-✔️ Réorganisation des fichier<br/>
-⌛ Remove CSV -> Use GoogleAPI<br/>
-⌛ Rework checks<br/>
-⌛ cyanure</br>
-⌛ Convert post to autopost<br/>
-⌛ Autopost memes<br/>
-❌ pprofile<br/>
-❌ ppost<br/>
-❌ Autopost pour partenaires<br/>
-❌ help<br/>
+**v2.0 - Rewrite**<br/>
+✔️ Full rewrite<br/>
+⌛ Auto post Youtube Videos/Shorts<br/>
+❌ Auto create events from upcoming streams<br/>
+❌ Auto post when stream starts<br/>
+❌ Auto post Twitter/Youtube/Insta/TikTok<br/>
+
+**v2.1 - Random stuff**<br/>
+❌ Autopost memes<br/>
 ❌ Add external logs to discord channel<br/>
+❌ /help<br/>
+
+**v2.2 - Partners**<br/>
+❌ Autopost for partners<br/>
+❌ /pprofile<br/>
+❌ /ppost<br/>
 
 
-## Features
-Blablabla
-
-### **Commands**
-- `/bonjour [user] [channel]` -> Send "Bonjour" the user in channel
-- `/changelog <version>` -> Send changelog in channel
-- `/cyanure <force>` -> Apply sanction to self ⌛
-- `/post <type> <ytb_link>` -> Post video/stream alert in channel
-- `/ping` -> Reply with delay between interactions
-
-### **Modules**
-- **Auto-run** -> Every X set of time, do actions in loop ⌛
+## Install
+\- Install pip modules from requirements.txt<br/>
+\- Setup environnement variables from .env<br/>
+\- Create discord bot + invite in server<br/>
+\- Commands are only executable in @skoh server, so need to change data.py<br/>
+\- Run main.py<br/>
 
 
 ## Contact

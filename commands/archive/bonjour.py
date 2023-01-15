@@ -42,8 +42,6 @@ class Bonjour(commands.Cog):
 
     # Command definition
     async def bonjour(self, interaction: discord.Interaction, user: discord.Member = None, channel: discord.TextChannel = None):
-        if not interaction.channel_id in Ids.bot_channels: # Check if bot in right channel
-            return
 
         # Core command code
         if (user == None):

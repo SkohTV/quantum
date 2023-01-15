@@ -47,8 +47,6 @@ class Post(commands.Cog):
 
     # Command definition
     async def post(self, interaction: discord.Interaction, preset: discord.app_commands.Choice[str], url: str):
-        if not interaction.channel_id in Ids.bot_channels: # Check if bot in right channel
-            return
 
         # Core command code
         channel_video = await self.bot.fetch_channel(Ids.channel_video)

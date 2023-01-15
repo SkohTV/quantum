@@ -16,11 +16,12 @@ def verify(guild: discord.Guild, user: discord.Member = None, channel: discord.T
         (bool, string): If command is allowed, and if not why
     """
     if not guild.id == Ids.guild_main:
+        print(guild.id == Ids.guild_main)
         return (False, "❌ Commande désactivée dans ce serveur")
 
     # Changelog command -> Check IF channel in bot_channels AND user has admin role
     if command == "changelog":
-        if (channel.id in Ids.bot_channels):
+        if (channel.id in [Ids.channel_bot_private, Ids.channel_bot_public]):
             if (Ids.role_admin in list(map(lambda x: x.id, user.roles))):
                 return (True, None)
             else:
@@ -30,7 +31,7 @@ def verify(guild: discord.Guild, user: discord.Member = None, channel: discord.T
 
     # Ping command -> Check IF channel in bot_channels
     if command == "ping":
-        if (channel.id in Ids.bot_channels):
+        if (channel.id in [Ids.channel_bot_private, Ids.channel_bot_public]):
             return (True, None)
         else:
             return (False, "❌ Commande désactivée dans ce salon")
