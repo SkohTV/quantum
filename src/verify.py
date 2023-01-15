@@ -1,10 +1,5 @@
-
-
-
-
 import discord
 from data import Ids
-
 
 
 

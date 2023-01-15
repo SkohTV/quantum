@@ -43,7 +43,7 @@ class Changelog(commands.Cog):
     @app_commands.command(name="changelog",\
     description="Envoyer le changelog d'une version dans un salon")
     @app_commands.describe(version="Version du changelog à envoyer", channel="Channel dans lequel envoyer le changelog")
-    @app_commands.choices(version=[discord.app_commands.Choice(name=i, value=i) for i in json.load(open('db/changelog.json', 'r', encoding='utf-8'))]) # Create a choice for all index in json file
+    @app_commands.choices(version=[discord.app_commands.Choice(name=i, value=i) for i in json.load(open('databases/changelog.json', 'r', encoding='utf-8'))]) # Create a choice for all index in json file
     @app_commands.choices(channel=[
         discord.app_commands.Choice(name="🔐devs-bot", value="🔐devs-bot"),
         discord.app_commands.Choice(name="📚changelog", value="📚changelog")
@@ -60,7 +60,7 @@ class Changelog(commands.Cog):
 
         # Core command code
         # Open changelog.json
-        with open('db/changelog.json', 'r', encoding='utf-8') as f:
+        with open('databases/changelog.json', 'r', encoding='utf-8') as f:
             memory = json.load(f)
         memory = memory[version]
 

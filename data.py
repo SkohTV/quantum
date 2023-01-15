@@ -2,8 +2,15 @@
 Imports
 """
 from src.logger import logger
-from getpass import getpass
-from sty import ef, fg, rs
+from dotenv import load_dotenv
+import os
+
+
+"""
+Load .env file
+"""
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 
 """
@@ -66,31 +73,35 @@ class Emb: # For changelog.py
 Functions to setup login informations
 """
 class Login:
-    TOKEN = None
-    API_KEY = None
+    TOKEN = os.environ.get("TOKEN")
+    YTB_API_KEY = os.environ.get("YTB_API_KEY")
+    MONGO_URL = os.environ.get("MONGO_URL")
 
-    def setup_token():
-        # Check if TOKEN.txt exist, if not ask for manual bot token
-        # TOKEN.txt is not only on my personnal computer, this script is for convenience when restarts
-        global TOKEN
-        Setup.setup_after()
-        try:
-            with open('../../Identifiants/TOKEN.txt', 'r') as file:
-                TOKEN = [line.rstrip() for line in file][0]
-        except FileNotFoundError:
-            logger(fg(255,0,0) + ef.bold + 'No TOKEN.txt file found' + fg.rs + rs.bold_dim + ', please provide the token here : ')
-            TOKEN = getpass('')
-        logger("Connecting to Discord API...")
+"""
+Not necessary anymore since I use .env files
+"""
+    # def setup_token():
+    #     # Check if TOKEN.txt exist, if not ask for manual bot token
+    #     # TOKEN.txt is not only on my personnal computer, this script is for convenience when restarts
+    #     global TOKEN
+    #     Setup.setup_after()
+    #     try:
+    #         with open('../../Identifiants/TOKEN.txt', 'r') as file:
+    #             TOKEN = [line.rstrip() for line in file][0]
+    #     except FileNotFoundError:
+    #         logger(fg(255,0,0) + ef.bold + 'No TOKEN.txt file found' + fg.rs + rs.bold_dim + ', please provide the token here : ')
+    #         TOKEN = getpass('')
+    #     logger("Connecting to Discord API...")
 
-    def setup_api_key():
-        # Check if API_KEY.txt exist, if not ask for manual google api key
-        # API_KEY.txt is not only on my personnal computer, this script is for convenience when restarts
-        global API_KEY
-        Setup.setup_after()
-        try:
-            with open('../../Identifiants/API_KEY.txt', 'r') as file:
-                API_KEY = [line.rstrip() for line in file][0]
-        except FileNotFoundError:
-            logger(fg(255,0,0) + ef.bold + 'No API_KEY.txt file found' + fg.rs + rs.bold_dim + ', please provide the api key here : ')
-            API_KEY = getpass('')
-        logger("Connecting to Google API...")
+    # def setup_api_key():
+    #     # Check if API_KEY.txt exist, if not ask for manual google api key
+    #     # API_KEY.txt is not only on my personnal computer, this script is for convenience when restarts
+    #     global API_KEY
+    #     Setup.setup_after()
+    #     try:
+    #         with open('../../Identifiants/API_KEY.txt', 'r') as file:
+    #             API_KEY = [line.rstrip() for line in file][0]
+    #     except FileNotFoundError:
+    #         logger(fg(255,0,0) + ef.bold + 'No API_KEY.txt file found' + fg.rs + rs.bold_dim + ', please provide the api key here : ')
+    #         API_KEY = getpass('')
+    #     logger("Connecting to Google API...")

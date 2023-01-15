@@ -48,7 +48,7 @@ class Ping(commands.Cog):
         second = datetime.now().timestamp()
         third = interaction.created_at.timestamp()#replace(tzinfo=None)# + timedelta(hours=1)
         delay = round((second - first)*1000,2)
-        delay2 = round((first - third)*1000,1)
+        delay2 = abs(round((third - first)*1000,1))
         await interaction.edit_original_response(content="Discord Bot ⇒ `{}ms`\nDiscord Servers ⇒ `{}ms`".format(delay2, delay))
 
 

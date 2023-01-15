@@ -35,14 +35,14 @@ def ytb_request(youtube: googleapiclient.discovery.Resource, maxResults: int, pl
     z = json.load(open("video_info.json", "r+"))
 
     for item in response["items"]:
-        if not item["snippet"]["channelTitle"] in z["Ytb"]:
-            z["Ytb"].update({
+        if not item["snippet"]["channelTitle"] in z:
+            z.update({
                 item["snippet"]["channelTitle"] : []
                 })
 
-        if not any(d["id"] == item["snippet"]["resourceId"]["videoId"] for d in z["Ytb"][item["snippet"]["channelTitle"]]):
+        if not any(d["id"] == item["snippet"]["resourceId"]["videoId"] for d in z[item["snippet"]["channelTitle"]]):
             video_info = youtube.videos().list(part='snippet,contentDetails',id=item['snippet']['resourceId']['videoId']).execute()
-            z["Ytb"][item["snippet"]["channelTitle"]].append({
+            z[item["snippet"]["channelTitle"]].append({
                 "title": item["snippet"]["title"],
                 "kind": "short" if ("#short" in item["snippet"]["title"]) else ("upcoming" if video_info['items'][0]["snippet"]["liveBroadcastContent"] == "upcoming" else "video"),
                 "posted": "False",
@@ -56,4 +56,4 @@ def ytb_request(youtube: googleapiclient.discovery.Resource, maxResults: int, pl
 
 
 
-ytb_request(ytb_connect(Login.API_KEY), 20, "UUZEnrtgLG2qb3k7eWjuhacw")
+ytb_request(ytb_connect(Login.YTB_API_KEY), 20, "UUZEnrtgLG2qb3k7eWjuhacw")
