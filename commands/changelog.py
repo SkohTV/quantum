@@ -39,6 +39,7 @@ class Changelog(commands.Cog):
         logger(fg(0, 135, 36) + 'Cog loaded' + fg.rs + ef.bold + ' ->' + rs.bold_dim + ' {}'.format(command_name))
 
 
+
     # Command decorator
     @app_commands.command(name="changelog",\
     description="Envoyer le changelog d'une version dans un salon")

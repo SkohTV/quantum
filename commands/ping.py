@@ -25,11 +25,13 @@ Cog class
 class Ping(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        
+
     @commands.Cog.listener()
     async def on_ready(self):
         command_name = os.path.realpath(__file__).split("/")[-1].split("\\")[-1].split(".")[0]
         logger(fg(0, 135, 36) + 'Cog loaded' + fg.rs + ef.bold + ' ->' + rs.bold_dim + ' {}'.format(command_name))
+
+
 
     # Command decorator
     @app_commands.command(name="ping", description="Renvoi le délai de Quantum entre les messages et réponses")

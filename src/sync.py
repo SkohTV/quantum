@@ -38,6 +38,7 @@ class Sync(commands.Cog):
             print(E)
 
 
+
 # Smol cog class, as the module is imported as a cog for easier async call
 async def setup(bot):
     await bot.add_cog(Sync(bot), guilds=[discord.Object(id=Ids.guild_main)])

@@ -73,9 +73,11 @@ async def main():
         if not (filename=="__pycache__" or os.path.isdir('commands/'+filename)):
             await bot.load_extension(f"commands.{filename[:-3]}") # Load cogs commands
 
-    for filename in os.listdir('actions'): # Iterate through file of methods
-        if not (filename=="__pycache__" or os.path.isdir('commands/'+filename)):
-            await bot.load_extension(f"actions.{filename[:-3]}") # Load cogs methods
+    for filename in os.listdir('tasks'): # Iterate through file of tasks
+        if not (filename=="__pycache__" or os.path.isdir('tasks/'+filename)):
+            await bot.load_extension(f"tasks.{filename[:-3]}") # Load cogs tasks
+
+    await bot.load_extension(f"src.sync") # Sync all commands to the guild
 
     print(' ')
     await bot.start(Login.TOKEN) # Start the bot with the token
@@ -85,6 +87,7 @@ def post_start():
     time.sleep(2)
     print(' ')
     logger(ef.bold + fg(212,175,55) + 'Monitoring...' + fg.rs + rs.bold_dim)
-        
+    time.sleep(3)
+
 
 asyncio.run(main()) # Run main function to start the file
