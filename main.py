@@ -1,11 +1,14 @@
 import os
-os.system('cls')
+# os.system('cls')
 
 
 
-import start
+# import start
 # import databases.cloudAccess
 
 
 
-# import databases.youtubeAPI
+# .insert in database.youtubeAPI is almost done (2,1, then before ...)
+
+
+import databases.youtubeAPI

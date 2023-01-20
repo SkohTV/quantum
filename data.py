@@ -17,17 +17,14 @@ load_dotenv(dotenv_path)
 Main informations
 """
 class Setup:
-    login, version = None, None
-    def setup_after():
-        global login, version
-        login = 'dev'
-        version = '1.2.0'
-        """A.B.C
-        A = Very big additions (Birth, Odyssey)
-        B = Multiple new additions
-        C = Added new working addition
-        delta = 'stable' for public or 'dev' for private
-        """
+    login = 'dev'
+    version = '2.0.0'
+    """A.B.C
+    A = Very big additions (Birth, Odyssey)
+    B = Multiple new additions
+    C = Added new working addition
+    delta = 'stable' for public or 'dev' for private
+    """
 
 
 """

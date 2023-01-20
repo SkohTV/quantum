@@ -1,4 +1,5 @@
 """Medium loop
+Loop every 1 min
 
 Actions :
 - Posts
