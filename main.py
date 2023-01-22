@@ -1,10 +1,10 @@
 import os
-# os.system('cls')
+os.system('cls')
 
 
 
-# import src.start
-# import databases.cloudAccess
+import src.start
+import databases.cloudAccess
 
 
 
