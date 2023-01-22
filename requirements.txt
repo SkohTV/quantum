@@ -1,0 +1,5 @@
+discord.py
+sty
+python-dotenv
+pymongo
+google-api-python-client
