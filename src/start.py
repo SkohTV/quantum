@@ -24,7 +24,7 @@ import os
 import time
 
 import src.startmsg
-from data import Login, Setup
+from src.data import Login, Setup
 from src.logger import logger
 
 
@@ -58,7 +58,7 @@ async def on_ready():
     print(' ')
     logger(ef.bold + fg(212,175,55) + 'Cogs loading...' + fg.rs + rs.bold_dim)
     # Last setups with the on_ready event not logs related
-    bot_version = f'v{Setup.version}-{Setup.login}' # Get version from data file
+    bot_version = f'v{Setup.version}-{Setup.login}' # Get version from src.data file
     await bot.change_presence(activity=discord.Game(name=bot_version)) # Initiate discord bot status message
     threading.Thread(target=post_start).start() # Start end of code post_start
 

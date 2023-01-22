@@ -6,7 +6,7 @@ Action
 """
 # MUST HAVE
 import os
-from data import Ids
+from src.data import Ids
 from sty import ef, fg, rs
 from src.logger import logger
 from src.verify import verify

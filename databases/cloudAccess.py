@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from data import Login
+from src.data import Login
 
 
 client = MongoClient(Login.MONGO_URL)

@@ -1,5 +1,5 @@
 import discord
-from data import Ids
+from src.data import Ids
 
 
 

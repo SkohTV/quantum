@@ -1,0 +1,12 @@
+os
+sty
+discord
+discord.ext
+datetime
+json
+pymongo
+googleapiclient.discovery
+dotenv
+asyncio
+threading
+time
