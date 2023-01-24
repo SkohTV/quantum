@@ -28,6 +28,7 @@ class Setup:
     """
 
 
+
 """
 Discord ids for easy access and/or addition
 """
@@ -80,6 +81,15 @@ class Ids:
     channel_contact_staff = int(os.environ.get("channel_contact_staff"))
     channel_private_staff = int(os.environ.get("channel_private_staff"))
     channel_private_partner = int(os.environ.get("channel_private_partner"))
+
+
+
+"""
+Discord ids for easy access and/or addition
+"""
+class Socials:
+    # Skoh
+    posts_skoh_ytb = os.environ.get("posts_skoh_ytb")
 
 
 

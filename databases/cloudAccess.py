@@ -13,16 +13,20 @@ def mongoDisconnect(client: MongoClient):
 
 
 
-# client = mongoConnect()
+client = mongoConnect()
 
 
-# database = client["Posts"]
-# collection = database["Youtube-Uploads"]
+database = client["Posts"]
+collection = database["Youtube-Uploads"]
+collection.insert_one({"name": "test"})
+
+
+
+mongoDisconnect(client)
+
+
+
 
 # cursor = collection.find({})
-
 # for document in cursor:
 #     print(document)
-
-
-# mongoDisconnect(client)

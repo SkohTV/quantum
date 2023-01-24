@@ -1,10 +1,10 @@
-import os
-os.system('cls')
+# import os
+# os.system('cls')
 
 
 
-import src.start as st
-st.start()
+# import src.start as st
+# st.start()
 
 
 
@@ -15,7 +15,7 @@ st.start()
 # .insert in database.youtubeAPI is almost done (2,1, then before ...)
 
 
-# import modules.autopost.youtubeAPI
+import modules.autopost.youtubeAPI
 
 
 
