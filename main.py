@@ -3,7 +3,11 @@ os.system('cls')
 
 
 
-# import src.start
+import src.start as st
+st.start()
+
+
+
 # import databases.cloudAccess
 
 
@@ -12,3 +16,6 @@ os.system('cls')
 
 
 # import modules.autopost.youtubeAPI
+
+
+
