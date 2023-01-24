@@ -44,12 +44,11 @@ def start():
     """
     bot_init()
     """
-    # src.startmsg.start() # Print starting message
+    src.startmsg.start() # Print starting message
     intents = discord.Intents.all() # Enable intents on https://discord.com/developers/applications
     bot = commands.Bot(command_prefix='q!', case_insensitive=True, intents=intents) # Basic pre-requisite for the bot
 
-    def t():
-        
+    def first():
         module_test()
         asyncio.run(main()) # Run main function to start the file
 
@@ -63,7 +62,7 @@ def start():
         logger(ef.bold + fg(212,175,55) + '.env is loading...' + fg.rs + rs.bold_dim)
         dotenv_path = os.path.join(os.getcwd(), '.env')
         load_dotenv(dotenv_path)
-        if not os.environ.get("valid") == "1":
+        if not os.environ.get("verif") == "True":
             logger(ef.bold + '.env is ' + fg(255,0,0) + 'not valid'+ fg.rs + rs.bold_dim)
         else:
             logger(ef.bold + '.env is ' + fg(0, 135, 36) + 'valid' + fg.rs + rs.bold_dim)
@@ -73,12 +72,11 @@ def start():
         logger(ef.bold + fg(212,175,55) + 'MongoDB Client is loading...' + fg.rs + rs.bold_dim)
         try:
             client_temp = cAccess.mongoConnect()
-            print(client_temp.list_database_names())
+            void = client_temp.list_database_names()
             cAccess.mongoDisconnect(client_temp)
             logger(ef.bold + 'MongoDB Client is ' + fg(0, 135, 36) + 'valid' + fg.rs + rs.bold_dim)
         except:
             logger(ef.bold + 'MongoDB Client is ' + fg(255,0,0) + 'not valid'+ fg.rs + rs.bold_dim)
-            sys.exit()
 
 
 
@@ -141,7 +139,7 @@ def start():
         logger(ef.bold + fg(212,175,55) + 'Monitoring...' + fg.rs + rs.bold_dim)
         time.sleep(3)
 
-    t()
+    first()
 
 
 """

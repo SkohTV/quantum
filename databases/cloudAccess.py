@@ -13,16 +13,16 @@ def mongoDisconnect(client: MongoClient):
 
 
 
-client = mongoConnect()
+# client = mongoConnect()
 
 
-database = client["Posts"]
-collection = database["Youtube-Uploads"]
+# database = client["Posts"]
+# collection = database["Youtube-Uploads"]
 
-cursor = collection.find({})
+# cursor = collection.find({})
 
-for document in cursor:
-    print(document)
+# for document in cursor:
+#     print(document)
 
 
-mongoDisconnect(client)
+# mongoDisconnect(client)
