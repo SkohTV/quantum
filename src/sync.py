@@ -20,27 +20,27 @@ Cog class
 """ 
 
 class Sync(commands.Cog):
-    def __init__(self, bot: commands.Bot):
-        self.bot = bot
+		def __init__(self, bot: commands.Bot):
+				self.bot = bot
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        try:
-            # Syncing of commands
-            item = await self.bot.fetch_guild(Ids.guild_main) # Get guild item
-            fmt = await self.bot.tree.sync(guild=item) # Sync all commands to tree
-            # Print to console
-            command_name = os.path.realpath(__file__).split("/")[-1].split("\\")[-1].split(".")[0]
-            logger(fg(0, 135, 36) + 'Method loaded' + fg.rs + ef.bold + ' ->' + rs.bold_dim + ' {}'.format(command_name))
-            logger(f"Synced {len(fmt)} commands to the current guild.")
-            print(' ')
-            logger(ef.bold + fg(212,175,55) + 'Monitoring...' + fg.rs + rs.bold_dim)
-            return
-        except Exception as E:
-            print(E)
+		@commands.Cog.listener()
+		async def on_ready(self):
+				try:
+						# Syncing of commands
+						item = await self.bot.fetch_guild(Ids.guild_main) # Get guild item
+						fmt = await self.bot.tree.sync(guild=item) # Sync all commands to tree
+						# Print to console
+						command_name = os.path.realpath(__file__).split("/")[-1].split("\\")[-1].split(".")[0]
+						logger(fg(0, 135, 36) + 'Method loaded' + fg.rs + ef.bold + ' ->' + rs.bold_dim + ' {}'.format(command_name))
+						logger(f"Synced {len(fmt)} commands to the current guild.")
+						print(' ')
+						logger(ef.bold + fg(212,175,55) + 'Monitoring...' + fg.rs + rs.bold_dim)
+						return
+				except Exception as E:
+						print(E)
 
 
 
 # Smol cog class, as the module is imported as a cog for easier async call
 async def setup(bot):
-    await bot.add_cog(Sync(bot), guilds=[discord.Object(id=Ids.guild_main)])
+		await bot.add_cog(Sync(bot), guilds=[discord.Object(id=Ids.guild_main)])
