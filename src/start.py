@@ -4,7 +4,6 @@ This is where the bot and its components are initialized
 
 Order of execution : 
 - bot_init()
-    - print starting message
     - create bot object
 - module_test()
     - load .env
@@ -17,40 +16,31 @@ Order of execution :
     - send logs to console
     - set status
     - finish loading cog
-    - threading start : post_start()
-- post_start()
     - final prints
 """
 import discord
 from discord.ext import commands
 from sty import ef, fg, rs
 import asyncio
-import threading
 import os
-import time
-import sys
 from dotenv import load_dotenv
 
 
-import src.startmsg
 from src.data import Login, Setup
 from src.logger import logger
 from databases import cloudAccess as cAccess
 
 
+
 """
 """
-def start():
+def start(noverif=False):
     """
     bot_init()
     """
-    src.startmsg.start() # Print starting message
     intents = discord.Intents.all() # Enable intents on https://discord.com/developers/applications
     bot = commands.Bot(command_prefix='q!', case_insensitive=True, intents=intents) # Basic pre-requisite for the bot
 
-    def first():
-        module_test()
-        asyncio.run(main()) # Run main function to start the file
 
 
     """
@@ -126,22 +116,14 @@ def start():
         # Last setups with the on_ready event not logs related
         bot_version = f'v{Setup.version}-{Setup.login}' # Get version from src.data file
         await bot.change_presence(activity=discord.Game(name=bot_version)) # Initiate discord bot status message
-        threading.Thread(target=post_start).start() # Start end of code post_start
+        # threading.Thread(target=post_start).start() # Start end of code post_start
 
 
 
     """
-    post_start()
+    launch the script
     """
-    def post_start():
-        time.sleep(2)
-        print(' ')
-        logger(ef.bold + fg(212,175,55) + 'Monitoring...' + fg.rs + rs.bold_dim)
-        time.sleep(3)
+    if noverif == False:
+        module_test() # Show error messages if modules don't work (MongoDB, .env)
 
-    first()
-
-
-"""
-launch the script
-"""
+    asyncio.run(main()) # Run main function to start the file

@@ -1,5 +1,6 @@
 import googleapiclient.discovery
 from src.data import Login, Socials
+from src import logger
 import json
 import time
 
@@ -52,9 +53,11 @@ def ytb_request_playlist(youtube: googleapiclient.discovery.Resource, playlistId
                 "id" : item["snippet"]["resourceId"]["videoId"],
                 "liveBroadcastContent": video_info['items'][0]["snippet"]["liveBroadcastContent"]
                 })
-            # if not create_empty:
-            #     z.pop()
+            
+
     if not create_empty:
+        while(len(z) > 20):
+            z.pop(0)
         z.reverse()
     json.dump(z, open("video_info.json", "w+"))
 
@@ -65,5 +68,5 @@ def init():
     ytb_request_playlist(ytb_connect(Login.YTB_API_KEY), Socials.posts_skoh_ytb, create_empty = True)
 
 
-
+# init()
 # ytb_request_playlist(ytb_connect(Login.YTB_API_KEY), Socials.posts_skoh_ytb)

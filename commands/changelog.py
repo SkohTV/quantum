@@ -36,7 +36,7 @@ class Changelog(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         command_name = os.path.realpath(__file__).split("/")[-1].split("\\")[-1].split(".")[0]
-        logger(fg(0, 135, 36) + 'Cog loaded' + fg.rs + ef.bold + ' ->' + rs.bold_dim + ' {}'.format(command_name))
+        logger(fg(0, 135, 36) + 'Command loaded' + fg.rs + ef.bold + ' ->' + rs.bold_dim + ' {}'.format(command_name))
 
 
 

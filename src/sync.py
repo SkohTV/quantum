@@ -33,6 +33,8 @@ class Sync(commands.Cog):
             command_name = os.path.realpath(__file__).split("/")[-1].split("\\")[-1].split(".")[0]
             logger(fg(0, 135, 36) + 'Method loaded' + fg.rs + ef.bold + ' ->' + rs.bold_dim + ' {}'.format(command_name))
             logger(f"Synced {len(fmt)} commands to the current guild.")
+            print(' ')
+            logger(ef.bold + fg(212,175,55) + 'Monitoring...' + fg.rs + rs.bold_dim)
             return
         except Exception as E:
             print(E)
