@@ -1,5 +1,8 @@
+"""Cool starting message to display to the user"""
+
 def start():
-    print("""
+	"""Cool starting message"""
+	print("""
 
 
 

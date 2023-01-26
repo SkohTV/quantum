@@ -1,8 +1,4 @@
-"""
-Get all stdout from the bot
-Add them to logs database
-Send it to host console
-"""
+"""Get all stdout from the bot, then manage, show, etc..."""
 from datetime import datetime
 from sty import fg #, ef, rs
 

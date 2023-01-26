@@ -23,10 +23,12 @@ Maintained by [@SkohTV](https://github.com/SkohTV)<br/>
 
 
 ## Install
+\- Code is fully pylint validated<br/>
 \- Install pip modules from requirements.txt<br/>
 \- Setup environnement variables from .env<br/>
 \- Create discord bot + invite in server<br/>
 \- Run main.py<br/>
+
 
 
 ## Contact

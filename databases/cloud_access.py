@@ -1,6 +1,3 @@
-from pymongo import MongoClient
-from src.data import Login
-
 """
 MongoDB
 
@@ -16,15 +13,18 @@ Actions
 		Slow
 				Actions that should be checked every 1 hour
 """
+from pymongo import MongoClient
+from src.data import Login
 
 
 
-def mongoConnect() -> MongoClient:
-		return MongoClient(Login.MONGO_URL)
+def connect() -> MongoClient:
+	"""Create a MongoDB connection"""
+	return MongoClient(Login.MONGO_URL)
 
-
-def mongoDisconnect(client: MongoClient):
-		client.close()
+def disconnect(client: MongoClient):
+	"""Close the MongoDB connection"""
+	client.close()
 
 
 
