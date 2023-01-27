@@ -49,7 +49,7 @@ def start(noverif=False):
 		dotenv_path = os.path.join(os.getcwd(), '.env')
 		load_dotenv(dotenv_path)
 		if not os.environ.get("verif") == "True":
-			logger(ef.bold + '.env is ' + fg(255,0,0) + 'not valid'+ fg.rs + rs.bold_dim)
+			logger(ef.bold + '.env is ' + fg(255,0,0) + 'not valid'+ fg.rs + rs.bold_dim + ' -> verif != True')
 		else:
 			logger(ef.bold + '.env is ' + fg(0, 135, 36) + 'valid' + fg.rs + rs.bold_dim)
 
