@@ -1,9 +1,9 @@
 """Connect to Youtube API and make requests"""
-import json
 import googleapiclient.discovery
+from pymongo import MongoClient
 from databases import cloud_access as cAccess
-# from src.data import Login, Socials
-# from src import logger
+#from src.data import Login, Socials
+from src.logger import logger
 
 
 
@@ -12,10 +12,10 @@ def ytb_connect(api_key: str) -> googleapiclient.discovery.Resource:
 	"""Create a connection to the Youtube API
 
 	Args:
-			API_KEY (str): Given API key located in the .env file
+		API_KEY (str): Given API key located in the .env file
 
 	Returns:
-			googleapiclient.discovery.Resource: Youtube object to use for requests
+		googleapiclient.discovery.Resource: Youtube object to use for requests
 	"""
 	api_service_name, api_version, developer_key = "youtube", "v3", api_key
 	youtube = googleapiclient.discovery.build(api_service_name, api_version, developerKey = developer_key)
@@ -23,10 +23,11 @@ def ytb_connect(api_key: str) -> googleapiclient.discovery.Resource:
 
 
 
-def ytb_request_playlist(youtube: googleapiclient.discovery.Resource, playlist_id: str, max_results = 20, create_empty = False, client: MongoClient = None):
+def ytb_request_playlist(client: MongoClient, youtube: googleapiclient.discovery.Resource, playlist_id: str, max_results = 20, create_empty = False):
 	"""Send a request to Youtube API to fetch videos from a playlist
 
 	Args:
+		client (MongoClient): MongoDB client to connect to the database.
 		youtube (googleapiclient.discovery.Resource): Initialized Youtube object to connect to Youtube API
 		playlistId (str): The ID of the playlist to fetch
 		maxResults (int, optional): Max number of results to fetch (20 almost every time)
@@ -52,16 +53,10 @@ def ytb_request_playlist(youtube: googleapiclient.discovery.Resource, playlist_i
 				"posted": "False" if create_empty else "True",
 				"id" : item["snippet"]["resourceId"]["videoId"],
 				"liveBroadcastContent": video_info['items'][0]["snippet"]["liveBroadcastContent"]
-					})
+			})
 
 	if not create_empty:
 		while len(mongo_ytb) > 20:
 			mongo_ytb.pop(0)
+			logger("New video")
 		mongo_ytb.reverse()
-	json.dump(mongo_ytb, open("video_info.json", "w+", encoding="utf-8"))
-
-
-
-
-# ytb_request_playlist(ytb_connect(Login.YTB_API_KEY), Socials.posts_skoh_ytb, create_empty = True)
-# ytb_request_playlist(ytb_connect(Login.YTB_API_KEY), Socials.posts_skoh_ytb)
