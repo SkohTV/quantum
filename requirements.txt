@@ -3,3 +3,4 @@ sty
 python-dotenv
 pymongo
 google-api-python-client
+pylint

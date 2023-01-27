@@ -1,21 +1,19 @@
 """Blablabla"""
-import src.start as st
-from src import startmsg
+from src.pylint_check import pylint_check
+#from src.start import start
+#from src.startmsg import clean_console, startmsg
 
-startmsg.clean()
-startmsg.start() # Print starting message
-
-
-st.start()
-# st.start(noverif=True)
+pylint_check()
 
 
+#clean_console()
+#startmsg() # Print starting message
 
-# import databases.cloudAccess
+#start()
+#start(noverif=True)
 
 
+# TESTING ZONE
 
-# .insert in database.youtubeAPI is almost done (2,1, then before ...)
-
-
-# import modules.autopost.youtubeAPI
+#import databases.cloudAccess
+#import modules.autopost.youtubeAPI
