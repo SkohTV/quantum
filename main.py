@@ -1,13 +1,14 @@
 """Blablabla"""
-from src.pylint_check import pylint_check
+from src.startmsg import clean_console, startmsg
+from src.tests import pylint_check
 #from src.start import start
-#from src.startmsg import clean_console, startmsg
-
-pylint_check()
 
 
-#clean_console()
-#startmsg() # Print starting message
+clean_console() # Clear the console
+startmsg() # Print starting message
+
+pylint_check() # Check the code quality of the project with PyLint
+
 
 #start()
 #start(noverif=True)

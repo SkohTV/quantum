@@ -1,6 +1,7 @@
 """Connect to Youtube API and make requests"""
 import json
 import googleapiclient.discovery
+from databases import cloud_access as cAccess
 # from src.data import Login, Socials
 # from src import logger
 
@@ -22,7 +23,7 @@ def ytb_connect(api_key: str) -> googleapiclient.discovery.Resource:
 
 
 
-def ytb_request_playlist(youtube: googleapiclient.discovery.Resource, playlist_id: str, max_results = 20, create_empty = False):
+def ytb_request_playlist(youtube: googleapiclient.discovery.Resource, playlist_id: str, max_results = 20, create_empty = False, client: MongoClient = None):
 	"""Send a request to Youtube API to fetch videos from a playlist
 
 	Args:
@@ -38,14 +39,14 @@ def ytb_request_playlist(youtube: googleapiclient.discovery.Resource, playlist_i
 	)
 	response = request.execute()
 
-	mongo_ytb = [] if create_empty else json.load(open("video_info.json", "r+", encoding="utf-8"))
+	mongo_ytb = [] if create_empty else cAccess.fetch(client, "Skoh", "Youtube")["videos"]
 	if not create_empty:
 		mongo_ytb.reverse()
 
 	for item in response["items"]:
 		if not any(d["id"] == item["snippet"]["resourceId"]["videoId"] for d in mongo_ytb):
 			video_info = youtube.videos().list(part='snippet,contentDetails',id=item['snippet']['resourceId']['videoId']).execute()
-			mongo_ytb.append({
+			cAccess.add(client, "Posts", "Skoh-Youtube", {
 				"title": item["snippet"]["title"],
 				"kind": "short" if ("#short" in item["snippet"]["title"]) else ("upcoming" if video_info['items'][0]["snippet"]["liveBroadcastContent"] == "upcoming" else "video"),
 				"posted": "False" if create_empty else "True",

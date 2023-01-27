@@ -24,17 +24,22 @@ def verify(guild: discord.Guild, user: discord.Member = None, channel: discord.T
 	if command == "changelog":
 		if (channel.id in [Ids.channel_bot_private, Ids.channel_bot_public]):
 			if Ids.role_admin in list(map(lambda x: x.id, user.roles)):
-				return (True, None)
+				result = (True, None)
 			else:
-				return (False, "❌ Vous n'avez pas la permission d'utiliser cette commande")
+				result = (False, "❌ Vous n'avez pas la permission d'utiliser cette commande")
 		else:
-			return (False, "❌ Commande désactivée dans ce salon")
+			result = (False, "❌ Commande désactivée dans ce salon")
 
 	# Ping command -> Check IF channel in bot_channels
 	if command == "ping":
 		if (channel.id in [Ids.channel_bot_private, Ids.channel_bot_public]):
-			return (True, None)
+			result = (True, None)
 		else:
-			return (False, "❌ Commande désactivée dans ce salon")
+			result = (False, "❌ Commande désactivée dans ce salon")
 
-	return (False, "❌ Aucune commande n'a été spécifiée dans le code")
+	# When no command is specified
+	else:
+		result = (False, "❌ Aucune commande n'a été spécifiée dans le code")
+
+
+	return result
