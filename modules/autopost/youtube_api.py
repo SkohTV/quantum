@@ -1,6 +1,5 @@
 """Connect to Youtube API and make requests"""
 import googleapiclient.discovery
-from databases import cloud_access as cAccess
 #from src.data import Login, Socials
 from src.logger import logger
 from databases.cloud_access import Atlas
@@ -33,11 +32,17 @@ def ytb_request_playlist(client: Atlas, youtube: googleapiclient.discovery.Resou
 	)
 	response = request.execute()
 	mongo_ytb = [] if create_empty else client.fetch()
+	if not create_empty:
+		mongo_ytb.reverse()
+
+	new_data = []
+	#print(mongo_ytb)
 
 	for item in response["items"]:
 		if not any(d["id"] == item["snippet"]["resourceId"]["videoId"] for d in mongo_ytb):
+			print(item["snippet"]["title"])
 			video_info = youtube.videos().list(part='snippet,contentDetails',id=item['snippet']['resourceId']['videoId']).execute()
-			client.add({
+			new_data.append({
 				"title": item["snippet"]["title"],
 				"kind": "short" if ("#short" in item["snippet"]["title"]) else ("upcoming" if video_info['items'][0]["snippet"]["liveBroadcastContent"] == "upcoming" else "video"),
 				"posted": "False" if create_empty else "True",
@@ -45,7 +50,12 @@ def ytb_request_playlist(client: Atlas, youtube: googleapiclient.discovery.Resou
 				"liveBroadcastContent": video_info['items'][0]["snippet"]["liveBroadcastContent"]
 			})
 
+	for i in new_data:
+		client.add(i)
+
 	if not create_empty:
 		while len(mongo_ytb) > 20:
 			client.supr(client.fetch()[0])
+			mongo_ytb.pop(0)
 			logger("New video")
+			print("aaaaaaaaaaaaaa")
