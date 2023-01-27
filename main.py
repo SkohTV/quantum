@@ -1,10 +1,8 @@
 """Blablabla"""
-
-import os
 import src.start as st
 from src import startmsg
 
-os.system('cls') # Clear console
+startmsg.clean()
 startmsg.start() # Print starting message
 
 

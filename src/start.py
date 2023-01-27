@@ -25,6 +25,7 @@ import discord
 from discord.ext import commands
 from sty import ef, fg, rs
 from dotenv import load_dotenv
+from pymongo.errors import ServerSelectionTimeoutError
 
 from src.data import Login, Setup
 from src.logger import logger
@@ -60,8 +61,9 @@ def start(noverif=False):
 			client_temp.list_database_names()
 			cAccess.disconnect(client_temp)
 			logger(ef.bold + 'MongoDB Client is ' + fg(0, 135, 36) + 'valid' + fg.rs + rs.bold_dim)
-		except Exception:
-			logger(ef.bold + 'MongoDB Client is ' + fg(255,0,0) + 'not valid'+ fg.rs + rs.bold_dim)
+		except ServerSelectionTimeoutError as err:
+			logger(ef.bold + 'MongoDB Client is ' + fg(255,0,0) + 'not valid'+ fg.rs + rs.bold_dim + ' -> ' + str(type(err)).replace("<class 'pymongo.errors.", "")[:-2])
+
 
 
 

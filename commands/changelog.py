@@ -64,8 +64,8 @@ class Changelog(commands.Cog):
 
 		# Core command code
 		# Open changelog.json
-		with open('databases/changelog.json', 'r', encoding='utf-8') as f:
-			memory = json.load(f)
+		with open('databases/changelog.json', 'r', encoding='utf-8') as clog:
+			memory = json.load(clog)
 		memory = memory[version]
 
 		# Create embed
@@ -83,7 +83,7 @@ class Changelog(commands.Cog):
 		author_name = Emb.author_name
 		pfp_bot = Emb.pfp_bot
 		pfp_creator = Emb.pfp_creator
-		github_link = Emb.github_link	 
+		github_link = Emb.github_link
 		footer_text = Emb.footer_text
 
 		# Formatting
