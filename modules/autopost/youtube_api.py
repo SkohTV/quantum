@@ -58,4 +58,3 @@ def ytb_request_playlist(client: Atlas, youtube: googleapiclient.discovery.Resou
 			client.supr(client.fetch()[0])
 			mongo_ytb.pop(0)
 			logger("New video")
-			print("aaaaaaaaaaaaaa")

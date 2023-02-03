@@ -29,7 +29,7 @@ from pymongo.errors import ServerSelectionTimeoutError
 
 from src.data import Login, Setup
 from src.logger import logger
-from databases import cloud_access as cAccess
+from databases.cloud_access import Atlas
 
 
 
@@ -57,9 +57,8 @@ def start(noverif=False):
 		print(' ')
 		logger(ef.bold + fg(212,175,55) + 'MongoDB Client is loading...' + fg.rs + rs.bold_dim)
 		try:
-			client_temp = cAccess.connect()
-			client_temp.list_database_names()
-			cAccess.disconnect(client_temp)
+			client_temp = Atlas("void", "void")
+			client_temp.disconnect()
 			logger(ef.bold + 'MongoDB Client is ' + fg(0, 135, 36) + 'valid' + fg.rs + rs.bold_dim)
 		except ServerSelectionTimeoutError as err:
 			logger(ef.bold + 'MongoDB Client is ' + fg(255,0,0) + 'not valid'+ fg.rs + rs.bold_dim + ' -> ' + str(type(err)).replace("<class 'pymongo.errors.", "")[:-2])

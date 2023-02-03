@@ -69,30 +69,19 @@ class Changelog(commands.Cog):
 		memory = memory[version]
 
 		# Create embed
-		embed=discord.Embed()
+		embed = discord.Embed()
 		fields = dict()
 
 		# Imports from changelog.json
-		version_bot = version
-		update_name = memory['title']
 		fields = memory['fields']
 
-		# Permanent informations
-		# bot_name = Emb.bot_name
-		colour = Emb.colour
-		author_name = Emb.author_name
-		pfp_bot = Emb.pfp_bot
-		pfp_creator = Emb.pfp_creator
-		github_link = Emb.github_link
-		footer_text = Emb.footer_text
-
 		# Formatting
-		embed.title = f'{update_name} - {version_bot}'
+		embed.title = f'{memory["title"]} - {version}'
 		embed.description = '\u200e'
-		embed.colour = colour
-		embed.url = github_link
-		embed.set_author(name=author_name, icon_url=pfp_bot)
-		embed.set_footer(text=footer_text, icon_url=pfp_creator)
+		embed.colour = Emb.colour
+		embed.url = Emb.github_link
+		embed.set_author(name=Emb.author_name, icon_url=Emb.pfp_bot)
+		embed.set_footer(text=Emb.footer_text, icon_url=Emb.pfp_creator)
 		for i in fields:
 			string = str()
 			for j in fields[i]:
