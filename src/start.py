@@ -58,6 +58,7 @@ def start(noverif=False):
 		logger(ef.bold + fg(212,175,55) + 'MongoDB Client is loading...' + fg.rs + rs.bold_dim)
 		try:
 			client_temp = Atlas("void", "void")
+			client_temp.fetch()
 			client_temp.disconnect()
 			logger(ef.bold + 'MongoDB Client is ' + fg(0, 135, 36) + 'valid' + fg.rs + rs.bold_dim)
 		except ServerSelectionTimeoutError as err:
