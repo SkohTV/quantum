@@ -15,7 +15,7 @@ def ytb_connect(api_key: str) -> googleapiclient.discovery.Resource:
 
 
 
-def ytb_request_playlist(client: Atlas, youtube: googleapiclient.discovery.Resource, playlist_id: str, max_results = 20, create_empty = False):
+def ytb_request_playlist(client: Atlas, youtube: googleapiclient.discovery.Resource, playlist_id: str, max_results = 5, create_empty = False) -> list:
 	"""Send a request to Youtube API to fetch videos from a playlist
 
 	Args:
@@ -24,10 +24,13 @@ def ytb_request_playlist(client: Atlas, youtube: googleapiclient.discovery.Resou
 		playlistId (str): The ID of the playlist to fetch
 		maxResults (int, optional): Max number of results to fetch (20 almost every time)
 		create_empty (bool, optional): If True, create a new json file with the channel name as key and an empty list as value (defaults to False)
+
+	Returns:
+		list: List of all new videos
 	"""
 	request = youtube.playlistItems().list(
 		part='snippet',
-		maxResults=max_results,
+		maxResults= 19 if create_empty else	max_results,
 		playlistId=playlist_id
 	)
 	response = request.execute()
@@ -40,7 +43,7 @@ def ytb_request_playlist(client: Atlas, youtube: googleapiclient.discovery.Resou
 
 	for item in response["items"]:
 		if not any(d["id"] == item["snippet"]["resourceId"]["videoId"] for d in mongo_ytb):
-			print(item["snippet"]["title"])
+			logger(f"New video : {item['snippet']['title']}")
 			video_info = youtube.videos().list(part='snippet,contentDetails',id=item['snippet']['resourceId']['videoId']).execute()
 			new_data.append({
 				"title": item["snippet"]["title"],
@@ -50,6 +53,9 @@ def ytb_request_playlist(client: Atlas, youtube: googleapiclient.discovery.Resou
 				"liveBroadcastContent": video_info['items'][0]["snippet"]["liveBroadcastContent"]
 			})
 
+	if create_empty:
+		new_data.reverse()
+
 	for i in new_data:
 		client.add(i)
 
@@ -57,4 +63,24 @@ def ytb_request_playlist(client: Atlas, youtube: googleapiclient.discovery.Resou
 		while len(mongo_ytb) > 20:
 			client.supr(client.fetch()[0])
 			mongo_ytb.pop(0)
-			logger("New video")
+			logger("Video popped of the database")
+
+	return new_data
+
+
+# TESTS
+
+
+#temp = Atlas("Posts", "Skoh_Youtube")
+
+#try:
+#	for i in range(100):
+#		temp.supr(temp.fetch()[0])
+#except IndexError:
+#	pass
+
+#yt.ytb_request_playlist(temp, yt.ytb_connect(Login.YTB_API_KEY), Socials.posts_skoh_ytb, create_empty=True)
+#yt.ytb_request_playlist(temp, yt.ytb_connect(Login.YTB_API_KEY), Socials.posts_skoh_ytb)
+#temp.supr(temp.fetch()[0])
+
+#temp.disconnect()

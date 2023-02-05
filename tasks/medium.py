@@ -18,7 +18,9 @@ from discord.ext import commands, tasks
 
 # INTERNAL
 from src.logger import logger
-from src.data import Ids
+from src.data import Ids, Login, Socials
+from databases.cloud_access import Atlas
+from modules.autopost import youtube_api as yt
 
 # PYLINT
 # False Positive : Method 'medium' has no 'start' memberPylint(E1101:no-member)
@@ -47,7 +49,11 @@ class Medium(commands.Cog):
 	# Task definition
 	async def medium(self):
 		"""Main loop starts here"""
-		print("aaaa")
+		client = Atlas("Posts", "Skoh_Youtube")
+
+		new_vids = yt.ytb_request_playlist(client, yt.ytb_connect(Login.YTB_API_KEY), Socials.posts_skoh_ytb)
+
+		client.disconnect()
 
 
 

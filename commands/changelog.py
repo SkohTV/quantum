@@ -70,7 +70,7 @@ class Changelog(commands.Cog):
 
 		# Create embed
 		embed = discord.Embed()
-		fields = dict()
+		fields = {}
 
 		# Imports from changelog.json
 		fields = memory['fields']
