@@ -58,6 +58,8 @@ class Medium(commands.Cog):
 		for video in new_vids:
 			await post_skoh_ytb(self.bot, video)
 
+		await schedule_skoh_ytb(self.bot)
+
 		client.disconnect()
 
 
@@ -83,7 +85,7 @@ async def setup(bot):
 # ACTIONS
 
 async def post_skoh_ytb(bot: commands.Bot, video_data: dict) -> None:
-	"""Post a video, stream or short to Discord channel
+	"""Post a video or short to Discord channel
 
 	Args:
 		bot (commands.Bot): Bot object to post/fetch
@@ -98,6 +100,42 @@ async def post_skoh_ytb(bot: commands.Bot, video_data: dict) -> None:
 			channel_video = await bot.fetch_channel(Ids.channel_dev)
 			url = f"https://www.youtube.com/shorts/{video_data['id']}"
 			await channel_video.send(f"Hey, **Skoh** à posté un nouveau clip\n:arrow_right: {url}")
+
+
+
+async def schedule_skoh_ytb(bot: commands.Bot) -> None:
+	"""Create a scheduled event from a Youtube Livestream (auto update each loop)
+
+	Args:
+		bot (commands.Bot): Bot object to post/fetch
+	"""
+	main_guild = await bot.fetch_guild(Ids.guild_main)
+	events = await main_guild.fetch_scheduled_events()
+
+	# Fetch livestream DB
+
+	livestreams = []
+
+	for stream in livestreams:
+		for event in events:
+			if not stream == event.location:
+				# TO CREATE :  location (will be kept forever), subject, desc, image, start date, start time, end date, end time
+				# CREATE EVENT
+				pass
+			else:
+				# TO CHECK :  subject, desc, image, start date, start time, end date, end time
+				# IF check param by param
+					# update
+				pass
+
+	# Check if exist
+	# If not, create
+	# If exist, check differences
+	# If differences, update
+
+	# Find a solution to delete event if live finished
+	# Need to separate db for video / shorts / livestreams
+
 
 
 """

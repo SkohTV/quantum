@@ -112,4 +112,4 @@ def start(noverif=False):
 	# Launch the script
 	if not noverif:
 		module_test() # Show error messages if modules don't work (MongoDB, .env)
-		asyncio.run(main()) # Run main function to start the file
+	asyncio.run(main()) # Run main function to start the file

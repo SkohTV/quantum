@@ -96,7 +96,6 @@ class Changelog(commands.Cog):
 		await channel_obj.send(embed=to_send)
 		await interaction.response.send_message(f":white_check_mark: __Message envoyé__ **->** <#{channel_obj.id}>")
 
-		return
 
 
 
