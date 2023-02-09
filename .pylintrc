@@ -8,6 +8,7 @@ indent-after-paren=2
 indent-string="	"
 
 [MESSAGES CONTROL]
-disable=C0301, R0903
+disable=C0301, R0903, R1732
 #C031 disabled because lines length is not a problem
 #R0903 disabled because of classes for constants variables in data.py
+#R1732 disabled because false positive in changelog : file auto close with json.open()

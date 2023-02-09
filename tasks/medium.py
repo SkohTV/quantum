@@ -54,7 +54,7 @@ class Medium(commands.Cog):
 
 		client = Atlas("Posts", "Skoh_Youtube")
 
-		new_vids = yt.ytb_request_playlist(client, yt.ytb_connect(Login.YTB_API_KEY), Socials.posts_skoh_ytb)
+		new_vids = yt.ytb_request_playlist("video", client, yt.ytb_connect(Login.YTB_API_KEY), Socials.posts_skoh_ytb)
 		for video in new_vids:
 			await post_skoh_ytb(self.bot, video)
 

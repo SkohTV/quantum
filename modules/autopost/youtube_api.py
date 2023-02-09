@@ -5,6 +5,10 @@ from src.logger import logger
 from databases.cloud_access import Atlas
 
 
+# To anyone seeing this, pls send help, i am turning insane
+# For your own sanity, avoid this file at all costs
+# Trust me, it's not worth it
+
 
 
 def ytb_connect(api_key: str) -> googleapiclient.discovery.Resource:
@@ -15,10 +19,11 @@ def ytb_connect(api_key: str) -> googleapiclient.discovery.Resource:
 
 
 
-def ytb_request_playlist(client: Atlas, youtube: googleapiclient.discovery.Resource, playlist_id: str, max_results = 5, create_empty = False) -> list:
+def ytb_request_playlist(kind: str, client: Atlas, youtube: googleapiclient.discovery.Resource, playlist_id: str, max_results = 5, create_empty = False) -> list:
 	"""Send a request to Youtube API to fetch videos from a playlist
 
 	Args:
+		kind (str): Kind of video data request (video, short or direct)
 		client (Atlas): MongoDB client to connect to the database
 		youtube (googleapiclient.discovery.Resource): Initialized Youtube object to connect to Youtube API
 		playlistId (str): The ID of the playlist to fetch
@@ -39,19 +44,49 @@ def ytb_request_playlist(client: Atlas, youtube: googleapiclient.discovery.Resou
 		mongo_ytb.reverse()
 
 	new_data = []
-	#print(mongo_ytb)
 
 	for item in response["items"]:
-		if not any(d["id"] == item["snippet"]["resourceId"]["videoId"] for d in mongo_ytb):
-			logger(f"New video : {item['snippet']['title']}")
+		if any(d["id"] == item["snippet"]["resourceId"]["videoId"] for d in mongo_ytb):
+			continue
+
+		
+
+		if ("#short" in item["snippet"]["title"]):
+			if (kind == "short"):
+				logger(f"New short : {item['snippet']['title']}")
+				new_data.append({
+					"title": item["snippet"]["title"],
+					"id" : item["snippet"]["resourceId"]["videoId"],
+					"kind" : "short"
+				})
+
+		else:
 			video_info = youtube.videos().list(part='snippet,contentDetails',id=item['snippet']['resourceId']['videoId']).execute()
-			new_data.append({
-				"title": item["snippet"]["title"],
-				"kind": "short" if ("#short" in item["snippet"]["title"]) else ("upcoming" if video_info['items'][0]["snippet"]["liveBroadcastContent"] == "upcoming" else "video"),
-				"posted": "False" if create_empty else "True",
-				"id" : item["snippet"]["resourceId"]["videoId"],
-				"liveBroadcastContent": video_info['items'][0]["snippet"]["liveBroadcastContent"]
-			})
+
+			if kind == "video":
+				logger(f"New video : {item['snippet']['title']}")
+				new_data.append({
+					"title": item["snippet"]["title"],
+					"id" : item["snippet"]["resourceId"]["videoId"],
+					"kind" : "video" if video_info['items'][0]["snippet"]["liveBroadcastContent"] == "none" else "direct"
+				})
+
+			elif (kind == "direct") and (not video_info['items'][0]["snippet"]["liveBroadcastContent"] == "none"):
+				logger(f"New direct : {item['snippet']['title']}")
+				new_data.append({
+					"title": item["snippet"]["title"],
+					"id" : item["snippet"]["resourceId"]["videoId"],
+					"thumbnail" : item["snippet"]["thumbnails"]["maxres"]["url"],
+					"kind" : "direct"
+				})
+				#broadcast_request = youtube.liveBroadcasts().list(
+				#	part='id,snippet,status',
+				#	maxResults=1,
+				#	broadcastStatus='upcoming'
+				#	)
+				#broadcast_response = broadcast_request.execute()
+				#logger(broadcast_response)
+
 
 	if create_empty:
 		new_data.reverse()
@@ -84,3 +119,4 @@ def ytb_request_playlist(client: Atlas, youtube: googleapiclient.discovery.Resou
 #temp.supr(temp.fetch()[0])
 
 #temp.disconnect()
+#https://www.youtube.com/playlist?list=
