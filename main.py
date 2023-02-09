@@ -7,7 +7,7 @@ from src.tests import pylint_check
 clean_console() # Clear the console
 startmsg() # Print starting message
 
-pylint_check() # Check the code quality of the project with PyLint
+#pylint_check() # Check the code quality of the project with PyLint
 
 
 #start()
@@ -18,3 +18,11 @@ pylint_check() # Check the code quality of the project with PyLint
 # quantum -[C][S] -[noverif] -[pylint] -[nostart]
 
 # TESTING ZONE
+
+# check lengh of db
+# if lengh > 20
+# remove lasts until 20
+
+# append videos to db video
+# append shorts to db shorts
+# append streams to db streams
