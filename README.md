@@ -7,17 +7,17 @@ Maintained by [@SkohTV](https://github.com/SkohTV)<br/>
 **v2.0 - Rewrite**<br/>
 ✔️ Full rewrite<br/>
 ✔️ Auto post Youtube Videos/Shorts<br/>
-⌛ Auto create events from upcoming streams<br/>
-❌ Auto post when stream starts<br/>
-❌ Auto post Twitter/Youtube/Insta/TikTok<br/>
+📚 Auto create events from upcoming streams<br/>
+📚 Auto post when stream starts<br/>
+📚 Auto post Twitter/Youtube/Insta/TikTok<br/>
 
 **v2.1 - Random stuff**<br/>
-❌ Autopost memes<br/>
-❌ Add external logs to discord channel<br/>
+📚 Autopost memes<br/>
+⌛ Add external logs to discord channel<br/>
 ❌ /help<br/>
 
 **v2.2 - Partners**<br/>
-❌ Autopost for partners<br/>
+📚 Autopost for partners<br/>
 ❌ /pprofile<br/>
 ❌ /ppost<br/>
 
