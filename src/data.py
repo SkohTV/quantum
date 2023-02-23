@@ -76,13 +76,6 @@ class Ids:
 
 
 
-class Socials:
-	"""Discord ids for easy access and/or addition"""
-	# Skoh
-	posts_skoh_ytb = os.environ.get("posts_skoh_ytb")
-
-
-
 class Emb: # For changelog.py
 	"""Exported informations (links, names, pfp, permanent texts...)"""
 	bot_name = "Quantum"
@@ -93,13 +86,6 @@ class Emb: # For changelog.py
 	github_link = "https://github.com/SkohTV/Quantum-bot"
 	footer_text = "Made by @Skoh#9999"
 
-
-
-class Login:
-	"""Functions to setup login informations"""
-	TOKEN = os.environ.get("TOKEN")
-	YTB_API_KEY = os.environ.get("YTB_API_KEY")
-	MONGO_URL = os.environ.get("MONGO_URL")
 
 
 
