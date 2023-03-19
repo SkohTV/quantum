@@ -28,7 +28,7 @@ from dotenv import load_dotenv
 from pymongo.errors import ServerSelectionTimeoutError
 
 from src.data import Login, Setup
-from src.logger import logger
+from src.tools import logger
 from databases.cloud_access import Atlas
 
 
@@ -43,16 +43,6 @@ def start(noverif=False):
 	def module_test():
 		"""module_test()"""
 
-		# Test if.env file exists
-		print(' ')
-		logger(ef.bold + fg(212,175,55) + '.env is loading...' + fg.rs + rs.bold_dim)
-		dotenv_path = os.path.join(os.getcwd(), '.env')
-		load_dotenv(dotenv_path)
-		if not os.environ.get("verif") == "True":
-			logger(ef.bold + '.env is ' + fg(255,0,0) + 'not valid'+ fg.rs + rs.bold_dim + ' -> verif != True')
-		else:
-			logger(ef.bold + '.env is ' + fg(0, 135, 36) + 'valid' + fg.rs + rs.bold_dim)
-
     # Test if MongoDB is running
 		print(' ')
 		logger(ef.bold + fg(212,175,55) + 'MongoDB Client is loading...' + fg.rs + rs.bold_dim)
@@ -64,6 +54,8 @@ def start(noverif=False):
 		except ServerSelectionTimeoutError as err:
 			logger(ef.bold + 'MongoDB Client is ' + fg(255,0,0) + 'not valid'+ fg.rs + rs.bold_dim + ' -> ' + str(type(err)).replace("<class 'pymongo.errors.", "")[:-2])
 
+    # Test if Google Drive is running
+		pass
 
 
 
@@ -79,7 +71,7 @@ def start(noverif=False):
 			if not (filename=="__pycache__" or os.path.isdir('tasks/'+filename)):
 				await bot.load_extension(f"tasks.{filename[:-3]}") # Load cogs tasks
 
-		await bot.load_extension("src.sync") # Sync all commands to the guild
+		await bot.load_extension("src._sync") # Sync all commands to the guild
 
 		print(' ')
 		await bot.start(Login.TOKEN) # Start the bot with the token

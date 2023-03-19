@@ -22,10 +22,8 @@ from discord import app_commands
 from discord.ext import commands
 
 # INTERNAL
-from src.verify import verify
-from src.logger import logger
-from src.data import Ids
-from src.data import Emb
+from src.tools import verify, logger
+from src.data import Ids, Emb
 
 
 
@@ -64,7 +62,7 @@ class Changelog(commands.Cog):
 
 		# Core command code
 		# Open changelog.json
-		with open('databases/changelog.json', 'r', encoding='utf-8') as clog:
+		with open('data/changelog.json', 'r', encoding='utf-8') as clog:
 			memory = json.load(clog)
 		memory = memory[version]
 

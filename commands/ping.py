@@ -15,8 +15,7 @@ from discord import app_commands
 from discord.ext import commands
 
 # INTERNAL
-from src.verify import verify
-from src.logger import logger
+from src.tools import verify, logger
 from src.data import Ids
 
 
