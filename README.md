@@ -1,4 +1,6 @@
-# Quantum
+# WILL BE REWRITTEN ENTIRELY IN TYPESCRIPT 
+
+<!--# Quantum
 Open source Discord bot, running on Skoh's Discord server<br>
 Maintained by [@SkohTV](https://github.com/SkohTV)<br/>
 
@@ -129,4 +131,4 @@ Blablabla
 
 
 ## Contact
-Discord - `@Skoh#9999` | Discord Server - https://discord.gg/G8hrncZ
+Discord - `@Skoh#9999` | Discord Server - https://discord.gg/G8hrncZ-->
