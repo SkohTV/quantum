@@ -1,19 +1,4 @@
-"""
-Main file of the tree
-This is where the bot and its components are initialized
-
-Order of execution :
-- bot_init()
-		- create bot object
-- main()
-		- initiate token
-		- start loading cog
-		- bot launched
-- on_ready()
-		- send logs to console
-		- set status
-		- finish loading cog
-"""
+"""Blabla"""
 # BASE
 import os
 import asyncio
@@ -22,9 +7,10 @@ import asyncio
 import discord
 from discord.ext import commands
 from sty import ef, fg, rs
+from dotenv import load_dotenv
 
 # INTERNAL
-from src.data import Login, Setup
+from src.constants import Setup
 from src.tools import logger
 
 
@@ -32,7 +18,9 @@ from src.tools import logger
 def start():
 	"""bot_init()"""
 	intents = discord.Intents.all() # Enable intents on https://discord.com/developers/applications
-	bot = commands.Bot(command_prefix='q!', case_insensitive=True, intents=intents) # Basic pre-requisite for the bot
+	bot = commands.Bot(command_prefix='q!', case_insensitive=True, intents=intents) # Create bot object (requiered)
+	dotenv_path = os.path.join(os.getcwd(), '.env') # Look for the .env file
+	load_dotenv(dotenv_path) # Load the .env
 
 
 	async def main():
@@ -42,9 +30,15 @@ def start():
 			if not (filename=="__pycache__" or os.path.isdir('commands/'+filename)):
 				await bot.load_extension(f"commands.{filename[:-3]}") # Load cogs commands
 
+		# Load commands
+		for filename in os.listdir('tasks'): # Iterate through file of tasks
+			if not (filename=="__pycache__" or os.path.isdir('tasks/'+filename)):
+				await bot.load_extension(f"tasks.{filename[:-3]}") # Load tasks
+
 		await bot.load_extension("src._sync") # Sync all commands to the guild
 		print(' ')
-		await bot.start(Login.TOKEN) # Start the bot with the token
+
+		await bot.start(os.environ.get("TOKEN")) # Start the bot with the token
 
 
 	@bot.event

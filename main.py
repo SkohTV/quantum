@@ -7,8 +7,7 @@ clean_console() # Clear the console
 startmsg() # Print starting message
 
 
-#start()
-#start(noverif=True)
+start()
 
 
 # TESTING ZONE

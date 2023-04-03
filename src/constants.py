@@ -1,11 +1,4 @@
 """Global Variables that will be shared across all scripts"""
-import os
-from dotenv import load_dotenv
-
-
-# Load .env file
-dotenv_path = os.path.join(os.getcwd(), '.env')
-load_dotenv(dotenv_path)
 
 
 
@@ -13,16 +6,23 @@ class Setup:
 	"""Main informations"""
 	login = 'dev'
 	version = '2.0.0'
-	"""A.B.C
-	A = Very big additions (Birth, Odyssey)
-	B = Multiple new additions
-	C = Added new working addition
-	delta = 'stable' for public or 'dev' for private
-	"""
+
+
+
+class Emb: # For changelog.py
+	"""Embed informations (links, names, pfp, permanent texts...)"""
+	bot_name = "Quantum"
+	colour = 11900928
+	author_name = "Quantum"
+	pfp_bot = "https://cdn.discordapp.com/avatars/1033842126334742659/5235b0f44210455555f1685cac3580b9.png?size=1024"
+	pfp_creator = "https://cdn.discordapp.com/avatars/373055398464323584/cf5191bff3d90119c78fc7156d1e32ef.png?size=1024"
+	github_link = "https://github.com/SkohTV/Quantum-bot"
+	footer_text = "Made by @Skoh#9999"
 
 
 
 class Ids:
+	"""Ids from the discord guild"""
 	# Perms
 	role_admin = 373070011507408896
 	role_dev = 1046844434987368479
@@ -79,20 +79,3 @@ class Ids:
 	VC_channel_public_2 = 977712600756404295
 	VC_waiting = 977699261263265862
 	VC_private = 978051082355896330
-
-
-class Emb: # For changelog.py
-	"""Exported informations (links, names, pfp, permanent texts...)"""
-	bot_name = "Quantum"
-	colour = 11900928
-	author_name = "Quantum"
-	pfp_bot = "https://cdn.discordapp.com/avatars/1033842126334742659/5235b0f44210455555f1685cac3580b9.png?size=1024"
-	pfp_creator = "https://cdn.discordapp.com/avatars/373055398464323584/cf5191bff3d90119c78fc7156d1e32ef.png?size=1024"
-	github_link = "https://github.com/SkohTV/Quantum-bot"
-	footer_text = "Made by @Skoh#9999"
-
-
-
-class Login: # For changelog.py
-	"""Discord Bot Token"""
-	TOKEN = int(os.environ.get("TOKEN"))

@@ -1,3 +1,4 @@
+"""Blabla"""
 # BASE
 import os
 from datetime import datetime
@@ -7,7 +8,7 @@ import discord
 from sty import fg #, ef, rs
 
 # INTERNAL
-from src.data import Ids
+from src.constants import Ids
 
 
 
@@ -50,32 +51,29 @@ def verify(guild: discord.Guild, user: discord.Member = None, channel: discord.T
 		(bool, string): If command is allowed, and if not why
 	"""
 	if not guild.id == Ids.guild_main:
-		print(guild.id == Ids.guild_main)
 		return (False, "❌ Commande désactivée dans ce serveur")
 
-	# Changelog command -> Check IF channel in bot_channels AND user has admin role
-	if command == "changelog":
-		if (channel.id in [Ids.channel_bot_private, Ids.channel_bot_public]):
-			if Ids.role_admin in list(map(lambda x: x.id, user.roles)):
-				result = (True, None)
-			else:
-				result = (False, "❌ Vous n'avez pas la permission d'utiliser cette commande")
-		else:
-			result = (False, "❌ Commande désactivée dans ce salon")
+	# Do something depending on the command
+	match command:
+
+# Changelog command -> Check IF channel in bot_channels AND user has admin role
+		case "changelog":
+			if not (channel.id in [Ids.channel_bot_private, Ids.channel_bot_public]): # Check if message is in valid channel
+				return (False, "❌ Commande désactivée dans ce salon")
+			if not Ids.role_admin in list(map(lambda x: x.id, user.roles)): # Check if user has role admin
+				return (False, "❌ Vous n'avez pas la permission d'utiliser cette commande")
+			return (True, None) # Good !
+
 
 	# Ping command -> Check IF channel in bot_channels
-	if command == "ping":
-		if (channel.id in [Ids.channel_bot_private, Ids.channel_bot_public]):
-			result = (True, None)
-		else:
-			result = (False, "❌ Commande désactivée dans ce salon")
+		case "ping":
+			if (channel.id in [Ids.channel_bot_private, Ids.channel_bot_public]): # Check if message is in valid channel
+				return (False, "❌ Commande désactivée dans ce salon")
+			return (True, None)
 
-	# When no command is specified
-	else:
-		result = (False, "❌ Aucune commande n'a été spécifiée dans le code")
-
-
-	return result
+	# When no command is specified (dev error)
+		case _:
+			return (False, "❌ Aucune commande n'a été spécifiée dans le code")
 
 
 

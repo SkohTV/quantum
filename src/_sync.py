@@ -9,7 +9,7 @@ from discord.ext import commands
 
 # INTERNAL
 from src.tools import logger
-from src.data import Ids
+from src.constants import Ids
 
 
 

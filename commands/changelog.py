@@ -1,15 +1,4 @@
-"""`/changelog {version} {channel}`
-
-Args
-	version
-		version of the changelog to send
-	channel
-		channel to send changelog into
-
-Action
-	send_message
-		Send created message to Discord guild
-"""
+"""Blabla"""
 # BASE
 import os
 import json
@@ -23,13 +12,12 @@ from discord.ext import commands
 
 # INTERNAL
 from src.tools import verify, logger
-from src.data import Ids, Emb
+from src.constants import Ids, Emb
 
 
 
 class Changelog(commands.Cog):
 	"""Cog class"""
-
 	def __init__(self, bot: commands.Bot):
 		self.bot = bot
 
@@ -44,11 +32,14 @@ class Changelog(commands.Cog):
 	# Command decorator
 	@app_commands.command(name="changelog", description="Envoyer le changelog d'une version dans un salon")
 	@app_commands.describe(version="Version du changelog à envoyer", channel="Channel dans lequel envoyer le changelog")
-	@app_commands.choices(version=[discord.app_commands.Choice(name=i, value=i) for i in json.load(open('databases/changelog.json', 'r', encoding='utf-8'))]) # Create a choice for all index in json file
+	@app_commands.choices(version=[
+		discord.app_commands.Choice(name=i, value=i)
+		for i in json.load(open('database/changelog.json', 'r', encoding='utf-8'))
+		]) # Create a choice for all index in json file
 	@app_commands.choices(channel=[
 		discord.app_commands.Choice(name="🔐devs-bot", value="🔐devs-bot"),
 		discord.app_commands.Choice(name="📚changelog", value="📚changelog")
-	])
+	]) # Channels of destination for the changelog msg
 	@app_commands.checks.has_any_role(Ids.role_admin)
 
 	# Command definition
@@ -61,28 +52,20 @@ class Changelog(commands.Cog):
 			return
 
 		# Core command code
-		# Open changelog.json
-		with open('data/changelog.json', 'r', encoding='utf-8') as clog:
+		with open('database/changelog.json', 'r', encoding='utf-8') as clog: # Load json file
 			memory = json.load(clog)
-		memory = memory[version]
-
-		# Create embed
-		embed = discord.Embed()
-		fields = {}
-
-		# Imports from changelog.json
-		fields = memory['fields']
 
 		# Formatting
-		embed.title = f'{memory["title"]} - {version}'
+		embed = discord.Embed() # Create embed
+		embed.title = f'{memory[version]["title"]} - {version}'
 		embed.description = '\u200e'
 		embed.colour = Emb.colour
 		embed.url = Emb.github_link
 		embed.set_author(name=Emb.author_name, icon_url=Emb.pfp_bot)
 		embed.set_footer(text=Emb.footer_text, icon_url=Emb.pfp_creator)
-		for i in fields:
+		for i in memory[version]['fields']:
 			string = str()
-			for j in fields[i]:
+			for j in memory[version]['fields'][i]:
 				string += j+"\n"
 			embed.add_field(name=i, value=string, inline=False)
 		timestamp = datetime.now()
