@@ -1,9 +1,4 @@
-"""`/ping`
-
-Action
-	send_message
-		Send message -> then edit with delay between interaction and response
-"""
+"""Blabla"""
 # BASE
 import os
 from datetime import datetime
@@ -15,15 +10,13 @@ from discord import app_commands
 from discord.ext import commands
 
 # INTERNAL
-from src.verify import verify
-from src.logger import logger
-from src.data import Ids
+from src.tools import verify, logger
+from src.constants import Ids
 
 
 
 class Ping(commands.Cog):
 	"""Cog class"""
-
 	def __init__(self, bot: commands.Bot):
 		self.bot = bot
 
@@ -48,14 +41,9 @@ class Ping(commands.Cog):
 			return
 
 		# Core command code
-		first = datetime.now().timestamp()
-		await interaction.response.send_message(":hourglass: Loading...")
-		second = datetime.now().timestamp()
-		third = interaction.created_at.timestamp()#replace(tzinfo=None)# + timedelta(hours=1)
-		delay = round((second - first)*1000,2)
-		delay2 = abs(round((third - first)*1000,1))
-		await interaction.edit_original_response(content=f"Discord Bot ⇒ `{delay2}ms`\nDiscord Servers ⇒ `{delay}ms`")
-
+		websocket_latency = self.bot.ws.latency
+		bot_latency = self.bot.latency
+		await interaction.response.send_message(content=f"Discord Bot ⇒ `{bot_latency}ms`\nDiscord Websocket ⇒ `{websocket_latency}ms`")
 
 
 

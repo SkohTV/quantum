@@ -8,8 +8,8 @@ import discord
 from discord.ext import commands
 
 # INTERNAL
-from src.logger import logger
-from src.data import Ids
+from src.tools import logger
+from src.constants import Ids
 
 
 

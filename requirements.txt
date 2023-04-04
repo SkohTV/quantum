@@ -1,6 +1,3 @@
-discord.py
-sty
-python-dotenv
-pymongo
-google-api-python-client
-pylint
+discord.py==2.1.1
+sty==1.0.4
+python-dotenv==0.21.1
