@@ -12,11 +12,11 @@
 # BASE
 import os
 from datetime import datetime
-import requests
 import json
 import asyncio
 
 # PIP
+import requests
 from sty import ef, fg, rs
 import discord
 from discord.ext import commands, tasks
