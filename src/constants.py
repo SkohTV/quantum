@@ -1,4 +1,5 @@
 """Global Variables that will be shared across all scripts"""
+import os
 
 
 

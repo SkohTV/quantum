@@ -8,7 +8,7 @@ import discord
 from discord.ext import commands
 
 # INTERNAL
-from src.tools import logger
+from src.utils import cprint
 from src.constants import Ids
 
 
@@ -27,10 +27,13 @@ class Sync(commands.Cog):
 		fmt = await self.bot.tree.sync(guild=item) # Sync all commands to tree
 		# Print to console
 		command_name = os.path.realpath(__file__).split("/")[-1].split("\\")[-1].split(".")[0]
-		logger(fg(0, 135, 36) + 'Method loaded' + fg.rs + ef.bold + ' -> ' + rs.bold_dim + command_name)
-		logger(f"Synced {len(fmt)} commands to the current guild.")
-		print(f" \n{'='*130}\n ")
-		logger(ef.bold + fg(212,175,55) + "Monitoring...\n " + fg.rs + rs.bold_dim)
+		cprint(f"{fg(0, 135, 36)}Method loaded{fg.rs + ef.bold} -> {rs.bold_dim + command_name}")
+		cprint(f"Synced {len(fmt)} commands to the current guild")
+		cprint(" ")
+		cprint("="*60)
+		cprint(" ")
+		cprint(f"{ef.bold + fg(212,175,55)}Monitoring...{fg.rs + rs.bold_dim}")
+		cprint(" ")
 
 
 

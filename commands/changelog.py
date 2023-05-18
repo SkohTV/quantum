@@ -11,7 +11,7 @@ from discord import app_commands
 from discord.ext import commands
 
 # INTERNAL
-from src.tools import verify, logger
+from src.utils import verify, cprint
 from src.constants import Ids, Emb
 
 
@@ -25,7 +25,7 @@ class Changelog(commands.Cog):
 	async def on_ready(self):
 		"""Send message when cog is successfully loaded"""
 		command_name = os.path.realpath(__file__).split("/")[-1].split("\\")[-1].split(".")[0]
-		logger(fg(0, 135, 36) + 'Command loaded' + fg.rs + ef.bold + ' -> ' + rs.bold_dim + command_name)
+		cprint(f"{fg(0, 135, 36)}Command loaded{fg.rs + ef.bold} -> {rs.bold_dim + command_name}")
 
 
 

@@ -1,6 +1,7 @@
 """Blabla"""
 # BASE
 import os
+import platform
 from datetime import datetime
 
 # PIP
@@ -16,7 +17,7 @@ from src.constants import Ids
 #							 		PRINT/LOG								 #
 ############################################
 
-def logger(text:str, *specific:str) -> None:
+def cprint(text: str, status: str = "base", kind: str = "stdi") -> None:
 	"""Receive all stdout and process them
 
 	Args:
@@ -24,12 +25,25 @@ def logger(text:str, *specific:str) -> None:
 		specific (tuple): Custom kind of notification to log (priority, error...)
 	"""
 	now = str(datetime.now())
-	time = f'[{now[0:4]}-{now[5:7]}-{now[8:10]} {now[11:13]}:{now[14:16]}:{now[17:19]}]'
-	if len(specific) == 0:
-		message = f"{time} {text}"
-	elif specific[0] == 'err':
-		message = f"{fg(255,0,0) + time + fg.rs} {fg(255,0,0) + text + fg.rs}"
-	print(message)
+	time = f"[{now[0:4]}-{now[5:7]}-{now[8:10]} {now[11:13]}:{now[14:16]}:{now[17:19]}]"
+
+	match status:
+		case "waiting":
+			time = f"{fg(212,175,55) + time + fg.rs}"
+		case "error":
+			time = f"{fg(255,0,0) + time + fg.rs}"
+		case "success":
+			time = f"{fg(0,255,0) + time + fg.rs}"
+
+	message = f"{time} {text}"
+
+	match kind:
+		case "stdi":
+			print(message)
+		case "file":
+			pass
+		case "logs":
+			pass
 
 
 
@@ -67,7 +81,7 @@ def verify(guild: discord.Guild, user: discord.Member = None, channel: discord.T
 
 	# Ping command -> Check IF channel in bot_channels
 		case "ping":
-			if (channel.id in [Ids.channel_bot_private, Ids.channel_bot_public]): # Check if message is in valid channel
+			if not (channel.id in [Ids.channel_bot_private, Ids.channel_bot_public]): # Check if message is in valid channel
 				return (False, "❌ Commande désactivée dans ce salon")
 			return (True, None)
 
@@ -84,7 +98,15 @@ def verify(guild: discord.Guild, user: discord.Member = None, channel: discord.T
 
 def clean_console():
 	"""Clear the terminal"""
-	os.system('cls') # Clear console
+	match platform.system:
+		case "Linux":
+			os.system('clear')
+		case "Windows":
+			os.system('cls')
+		case "Darwin":
+			pass # I don't know the clear screen for macos
+		case _:
+			cprint(text="")
 
 def startmsg():
 	"""Cool starting message"""

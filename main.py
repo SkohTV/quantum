@@ -1,5 +1,5 @@
 """Blablabla"""
-from src.tools import clean_console, startmsg
+from src.utils import clean_console, startmsg
 from src.start import start
 
 
