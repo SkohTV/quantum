@@ -43,7 +43,7 @@ class YTBfetch(commands.Cog):
 
 
 
-	@tasks.loop(seconds=30.0)
+	@tasks.loop(seconds=120.0)
 	async def ytbfetch(self):
 		cprint(f"Fetching videos for {ef.bold}Skoh{rs.bold_dim}...", status="waiting")
 		# Ids
