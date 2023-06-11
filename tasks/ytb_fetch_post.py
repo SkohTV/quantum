@@ -55,6 +55,7 @@ class YTBfetch(commands.Cog):
 
 		response = await YTB_fetch_playlist(api_key, playlist_id, parts, max_results) # Fetch videos
 		to_send = []
+		if not response: return # Handles rate limit
 
 		# If no videos in memory, don't send
 		do_send = (not self.videos == [])
@@ -111,16 +112,22 @@ async def YTB_fetch_playlist(api_key, playlist_id, parts, max_results):
 		data = await YTB_video_formatting(json.loads(res.text))
 		return data
 	except Exception as e:
-		print(e)
+		cprint(e.__repr__(), status="error")
+		return False
 
 async def YTB_fetch_video(api_key, video_id, parts):
-	res = requests.get(f"https://www.googleapis.com/youtube/v3/videos?id={video_id}&key={api_key}&part={parts}")
-	data = json.loads(res.text)
-	return data["items"][0]["snippet"]
+	try:
+		res = requests.get(f"https://www.googleapis.com/youtube/v3/videos?id={video_id}&key={api_key}&part={parts}")
+		data = json.loads(res.text)
+		return data["items"][0]["snippet"]
+	except Exception as e:
+		cprint(e.__repr__(), status="error")
+		return False
 
 
 async def YTB_check_type(api_key, video):
 	data = await YTB_fetch_video(api_key, video["video_ID"], "snippet%2CcontentDetails")
+	if not data: return False # Handle rate limit
 	vid_type = None
 	match data["liveBroadcastContent"]:
 		case "live":
