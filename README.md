@@ -2,14 +2,14 @@
 Open source Discord bot, running on Skoh's Discord server<br>
 Maintained by [@SkohTV](https://github.com/SkohTV)<br/>
 
+<!--https://discohook.org/?data=eyJtZXNzYWdlcyI6W3siZGF0YSI6eyJjb250ZW50IjpudWxsLCJlbWJlZHMiOm51bGwsImF0dGFjaG1lbnRzIjpbXX19XX0-->
 
 ## To-do
 **v2.0 - Rewrite**<br/>
 ✔️ Full rewrite<br/>
-✔️ Auto post Youtube Videos/Shorts<br/>
-📚 Auto create events from upcoming streams<br/>
-📚 Auto post when stream starts<br/>
-📚 Auto post Twitter/Youtube/Insta/TikTok<br/>
+✔️ Manual post/update Youtube Skoh
+📚 Auto post/update Youtube Skoh<br/>
+📚 Auto post Twitter/Insta/TikTok<br/>
 
 **v2.1 - Random stuff**<br/>
 📚 Autopost memes<br/>
@@ -62,4 +62,4 @@ Blablabla
 
 
 ## Contact
-Discord - `@Skoh#9999` | Discord Server - https://discord.gg/G8hrncZ
+Discord - `@skoh` | Discord Server - https://discord.gg/G8hrncZ

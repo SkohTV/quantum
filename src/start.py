@@ -29,10 +29,10 @@ def start():
 			if not (filename=="__pycache__" or os.path.isdir("commands/"+filename)):
 				await bot.load_extension(f"commands.{filename[:-3]}") # Load cogs commands
 
-		# Load commands
-		for filename in os.listdir("tasks"): # Iterate through file of tasks
-			if not (filename=="__pycache__" or os.path.isdir("tasks/"+filename)):
-				await bot.load_extension(f"tasks.{filename[:-3]}") # Load tasks
+		# Load tasks
+		#for filename in os.listdir("tasks"): # Iterate through file of tasks
+		#	if not (filename=="__pycache__" or os.path.isdir("tasks/"+filename)):
+		#		await bot.load_extension(f"tasks.{filename[:-3]}") # Load tasks
 
 		await bot.load_extension("src._sync") # Sync all commands to the guild
 		cprint(" ")
@@ -45,7 +45,7 @@ def start():
 		"""on_ready()"""
 		# Print bot infos
 		cprint(" ")
-		cprint(f"Logged with username {fg(0,255,0)}bot.user.name{fg.rs}")
+		cprint(f"Logged with username {fg(0,255,0) + str(bot.user.name) + fg.rs}")
 		cprint(f"Logged with userID {fg(0,255,255) + str(bot.user.id) + fg.rs}")
 		cprint(f"Discord module version is {fg(0,255,255) + str(discord.__version__) + fg.rs}")
 		# Print guilds connected to (should only be one)

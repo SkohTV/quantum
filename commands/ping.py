@@ -1,7 +1,7 @@
 """Blabla"""
 # BASE
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # PIP
 from sty import ef, fg, rs
@@ -41,9 +41,10 @@ class Ping(commands.Cog):
 			return
 
 		# Core command code
-		websocket_latency = self.bot.ws.latency
-		bot_latency = self.bot.latency
-		await interaction.response.send_message(content=f"Discord Bot ⇒ `{bot_latency:.3f}ms`\nDiscord Websocket ⇒ `{websocket_latency:.3f}ms`")
+		await interaction.response.send_message(content="⌛ Loading...")
+		websockets_latency = self.bot.ws.latency
+
+		await interaction.edit_original_response(content=f"Discord Websocket ⇒ `{websockets_latency:.3f}ms`")
 
 
 

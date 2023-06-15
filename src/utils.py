@@ -85,6 +85,13 @@ def verify(guild: discord.Guild, user: discord.Member = None, channel: discord.T
 				return (False, "❌ Commande désactivée dans ce salon")
 			return (True, None)
 
+
+	# Ping command -> Check IF channel in bot_channels
+		case "ytbfetch":
+			if not (channel.id in [Ids.channel_bot_private, Ids.channel_bot_public]): # Check if message is in valid channel
+				return (False, "❌ Commande désactivée dans ce salon")
+			return (True, None) # Good !
+
 	# When no command is specified (dev error)
 		case _:
 			return (False, "❌ Aucune commande n'a été spécifiée dans le code")
