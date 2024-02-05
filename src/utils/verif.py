@@ -15,6 +15,7 @@ def is_allowed(name: str, msg: Interaction) -> tuple[bool, str]:
       
 
 
+  # Return true if verification is successfull (and empty error message)
   return (True, '')
 
 
