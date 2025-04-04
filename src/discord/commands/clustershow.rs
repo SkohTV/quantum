@@ -1,26 +1,29 @@
-use crate::discord::{Context, Error, ids};
+use crate::discord::{Context, Error, default};
 use poise::serenity_prelude as serenity;
 use crate::database;
 
 
 
-/// Remove a user from the server cluster
+/// Show informations of a user in the cluster
 #[poise::command(
     slash_command,
-    rename="clusterdel",
-    default_member_permissions="ADMINISTRATOR",
+    rename="clustershow",
 )]
 pub async fn cmd(
     ctx: Context<'_>,
-    #[description = "User to remove from cluster"] user: serenity::Member,
+    #[description = "Cluster member"] user: Option<serenity::Member>,
 ) -> Result<(), Error> {
 
     let text = format!("⌛ Loading...");
     let response = ctx.say(text).await?;
 
+    let user = match user {
+        Some(x) => x,
+        _ => ctx.author_member().await.unwrap().into_owned(),
+    };
+
     let con = database::client::start_db().await;
     let userid = user.user.id.to_string();
-
 
     // Check if user in db
     let mut val = database::requests::user_in_cluster(con.clone(), &userid).await?;
@@ -28,7 +31,6 @@ pub async fn cmd(
     if let Some(val) = val.next().await? {
         let val: u32 = val.get(0)?;
 
-        // If not
         if val == 0 {
             let msg = poise::CreateReply::default()
                 .content(format!("{} is not in cluster", user))
@@ -39,12 +41,18 @@ pub async fn cmd(
         }
     }
 
-    // If yes
-    database::requests::remove_user(con.clone(), &userid).await?;
-    user.remove_role(ctx, serenity::RoleId::from(ids::CLUSTER_ROLE)).await?;
+    let val = database::requests::user_get_data(con.clone(), &user.user.id.to_string())
+        .await;
+    let val = val.unwrap().next().await?.unwrap();
+    let steamid: String = val.get(0).unwrap_or("null".to_string());
+    
+    let embed = default::embed()
+        .title("Cluster profile")
+        .description(format!("{}\n\nSteamID -> `{}`", user, steamid));
 
     let msg = poise::CreateReply::default()
-        .content(format!("Removed {} from cluster !", user));
+        .content("")
+        .embed(embed);
 
     response.edit(ctx, msg).await?;
 

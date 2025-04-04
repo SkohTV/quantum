@@ -1,6 +1,8 @@
 pub mod ping;
-pub mod embed;
 pub mod clusteradd;
 pub mod clusterdel;
-pub mod clusterlist;
-pub mod clusterupdate;
+pub mod clusterup;
+pub mod clustershow;
+pub mod embedadd;
+pub mod embeddel;
+pub mod embedget;

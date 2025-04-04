@@ -1,6 +1,7 @@
 use crate::consts;
-use crate::discord::{commands, framework, ids, Data, Handler};
+use crate::discord::{commands, tasks, framework, ids, Data, Handler};
 use poise::serenity_prelude as serenity;
+
 
 pub async fn app() {
     let token = std::env::var(format!("DISCORD_TOKEN_{}", consts::mode().to_uppercase()))
@@ -14,11 +15,13 @@ pub async fn app() {
     let options = poise::FrameworkOptions {
         commands: vec![
             commands::ping::cmd(),
-            commands::embed::cmd(),
             commands::clusteradd::cmd(),
             commands::clusterdel::cmd(),
-            commands::clusterlist::cmd(),
-            commands::clusterupdate::cmd(),
+            commands::clusterup::cmd(),
+            commands::clustershow::cmd(),
+            commands::embedadd::cmd(),
+            commands::embeddel::cmd(),
+            commands::embedget::cmd(),
         ],
 
         post_command: |ctx| Box::pin(framework::post_command(ctx)),
@@ -31,14 +34,10 @@ pub async fn app() {
     let framework = poise::Framework::builder()
         .options(options)
         .setup(|ctx, _ready, framework| {
+            tasks::start_tasks(ctx.clone());
+
             Box::pin(async move {
                 let main_guild = serenity::GuildId::from(ids::GUILD_ID);
-
-                // poise::builtins::register_globally(ctx, &framework.options().commands).await?;
-
-                // for cmd in main_guild.get_commands(ctx).await.unwrap() {
-                //     main_guild.delete_command(ctx, cmd.id).await.unwrap();
-                // }
 
                 poise::builtins::register_in_guild(ctx, &framework.options().commands, main_guild)
                     .await?;

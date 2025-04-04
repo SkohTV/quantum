@@ -26,4 +26,3 @@ async fn init_tables(con: libsql::Connection) {
         steamid text \
     )", ()).await.unwrap();
 }
-

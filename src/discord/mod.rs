@@ -5,6 +5,7 @@ pub mod framework;
 pub mod app;
 pub mod commands;
 pub mod events;
+pub mod tasks;
 
 
 

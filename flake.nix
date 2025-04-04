@@ -13,6 +13,9 @@ in {
       packages = with pkgs; [
         cargo
         rustc
+
+        pkg-config
+        openssl
         openssl.dev
       ];
     };

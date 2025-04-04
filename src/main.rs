@@ -10,7 +10,5 @@ use dotenv::dotenv;
 async fn main() {
     dotenv().ok();
 
-    // let db = database::client::start_db().await;
     discord::app::app().await;
-
 }
