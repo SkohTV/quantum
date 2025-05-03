@@ -27,15 +27,15 @@ pub async fn cmd(ctx: Context<'_>) -> Result<(), Error> {
         err => format!("Nitrado API ⇒ `err: {}`", err.as_str()),
     };
 
-    // Turso ping
+    // Mongo ping
     let start = std::time::Instant::now();
-    let _ = database::client::start_db().await;
+    let _ = database::start_db().await;
     let elapsed = start.elapsed();
-    let turso_status = format!("Turso Database ⇒ `{}ms`", elapsed.as_millis());
+    let mongo_status = format!("MongoDB database ⇒ `{}ms`", elapsed.as_millis());
 
     // Send msg
     let msg = poise::CreateReply::default()
-        .content(format!("{}\n{}\n{}", discord_status, nitrado_status, turso_status));
+        .content(format!("{}\n{}\n{}", discord_status, nitrado_status, mongo_status));
 
     discord_response.edit(ctx, msg).await?;
 
