@@ -8,18 +8,10 @@ let
   });
 
 in {
-  devShells = forAllSystems ({ pkgs }: {
-    default = pkgs.mkShell {
-      packages = with pkgs; [
-        cargo
-        rustc
-
-        pkg-config
-        openssl
-        openssl.dev
-      ];
-    };
-
+  devShells = forAllSystems ({ pkgs }: rec {
+    package = pkgs.callPackage ./default.nix { };
+    default = pkgs.mkShell { inputsFrom = [ package ]; };
   });
 };
+
 }

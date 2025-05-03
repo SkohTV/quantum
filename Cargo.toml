@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 dotenv = "0.15.0"
-libsql = "0.6.0"
+mongodb = "3.2.3"
 poise = { version = "0.6.1", features = ["cache"] }
 reqwest = "0.12.15"
 serde_json = "1.0.137"
