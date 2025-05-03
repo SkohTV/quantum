@@ -15,6 +15,8 @@ pub async fn app() {
     let options = poise::FrameworkOptions {
         commands: vec![
             commands::ping::cmd(),
+            commands::clusteradd::cmd(),
+            commands::clusterdel::cmd(),
         ],
 
         post_command: |ctx| Box::pin(framework::post_command(ctx)),

@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   pname = "quantum";
   version = "5.5";
 
-  src = ./bpfilter;
+  src = ./.;
 
   nativeBuildInputs = [
     cargo
