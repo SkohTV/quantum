@@ -40,4 +40,4 @@ jobs:
         with:
           push: true
           file: .github/Dockerfile
-          tags: skohtv/quantum:latest 
+          tags: ghcr.io/skohtv/quantum:latest 

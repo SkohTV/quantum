@@ -7,7 +7,7 @@ COPY src/ src
 COPY Cargo.lock .
 COPY Cargo.toml .
 
-RUN cargo build --release --verbose 
+RUN cargo build --release 
 
 
 # Release stage
