@@ -1,8 +1,26 @@
 # Quantum
+https://discord.gg/G8hrncZ
 
-Wip...
+## Discord
+Commands:
+`/ping`
+`/ytb post type=... url=...`
+`/ytb monitor url=...`
+`/ytb join url=...`
 
-.env
+Events:
+`On new member -> Add role @member`
+
+Timers:
+...
+
+## Youtube
+...
+
+
+<br>
+
+## .env
 ```bash
 DISCORD_TOKEN_DEV='...'
 DISCORD_TOKEN_RELEASE='...'
