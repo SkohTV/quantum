@@ -57,8 +57,8 @@ jobs:
       - name: Connect and redeploy
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "\
-          docker kill quantum 2&1>/dev/null &&\
-          docker rm quantum 2&1>/dev/null &&\
+          (docker kill quantum || true) &&\
+          (docker rm quantum || true) &&\
           docker pull ghcr.io/skohtv/quantum:latest &&\
           docker run --env-file .quantum.env --name quantum --detach ghcr.io/skohtv/quantum:latest"
 
