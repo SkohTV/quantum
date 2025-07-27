@@ -60,7 +60,7 @@ jobs:
           docker kill quantum 2&1>/dev/null &&\
           docker rm quantum 2&1>/dev/null &&\
           docker pull ghcr.io/skohtv/quantum:latest &&\
-          docker run --env-file .quantum.env --name quantum ghcr.io/skohtv/quantum:latest"
+          docker run --env-file .quantum.env --name quantum --detach ghcr.io/skohtv/quantum:latest"
 
       - name: Cleanup
         run: rm -rf ~/.ssh
