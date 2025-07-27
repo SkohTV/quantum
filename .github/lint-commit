@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+
+regex="^(treewide|nix|ci|discord|youtube)(\(.+\))?: .*$"
+
+
+# Check full history
+messages=$(git log --oneline --no-decorate)
+
+while IFS= read -r line; do
+    if [[ ! "${line:8}" =~ $regex ]]; then
+        echo >&2 "Commit history doesn't match regex: \"$line\""
+        exit 1
+    fi
+done <<< "$messages"

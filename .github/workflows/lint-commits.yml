@@ -1,0 +1,21 @@
+name: Lint commits
+
+
+on:
+  push:
+    branches:
+      - *-dev
+
+jobs:
+
+  deploy:
+    name: lint-commits
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout 
+        uses: actions/checkout@v4
+
+      - name: lint
+        run: .github/lint-commits
+
