@@ -1084,6 +1084,7 @@ name = "quantum"
 version = "6.0.0"
 dependencies = [
  "poise",
+ "tokio",
 ]
 
 [[package]]
