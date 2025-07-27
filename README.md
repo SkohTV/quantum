@@ -2,16 +2,16 @@
 https://discord.gg/G8hrncZ
 
 ## Discord
-Commands:
-`/ping`
-`/ytb post type=... url=...`
-`/ytb monitor url=...`
-`/ytb join url=...`
+Commands:  
+`/ping`  
+`/ytb post type=... url=...`  
+`/ytb monitor url=...`  
+`/ytb join url=...`  
 
-Events:
+Events:  
 `On new member -> Add role @member`
 
-Timers:
+Timers:  
 ...
 
 ## Youtube
