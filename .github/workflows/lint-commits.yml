@@ -8,8 +8,8 @@ on:
 
 jobs:
 
-  deploy:
-    name: lint-commits
+  lint-commits:
+    name: Lint commit history
     runs-on: ubuntu-latest
 
     steps:
