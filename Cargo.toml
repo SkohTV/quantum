@@ -1,0 +1,7 @@
+[package]
+name = "quantum"
+version = "6.0.0"
+edition = "2024"
+
+[dependencies]
+poise = "0.6.1"
