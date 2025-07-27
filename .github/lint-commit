@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-regex="^(treewide|nix|ci|discord|youtube)(\(.+\))?: .*$"
+regex="^(treewide|nix|ci|docs|discord|youtube)(\(.+\))?: .*$"
 
 
 # Check full history
