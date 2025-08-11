@@ -1,21 +1,8 @@
 # Quantum
-https://discord.gg/G8hrncZ
+[Server](https://discord.gg/G8hrncZ) | [Docs](https://quantum.skoh.dev)
+Small all-in-one bot written in Rust
+Made for my **Discord server**, **Youtube channel** & **Game servers**
 
-## Discord
-Commands:  
-`/ping`  
-`/ytb post type=... url=...`  
-`/ytb monitor url=...`  
-`/ytb join url=...`  
-
-Events:  
-`On new member -> Add role @member`
-
-Timers:  
-...
-
-## Youtube
-...
 
 
 <br>
@@ -24,4 +11,8 @@ Timers:
 ```bash
 DISCORD_TOKEN_DEV='...'
 DISCORD_TOKEN_RELEASE='...'
+
+YOUTUBE_TOKEN='...' # not implemented yet
+NITRADO_TOKEN='...' # not implemented yet
+MONGODB_TOKEN='...' # not implemented yet
 ```
