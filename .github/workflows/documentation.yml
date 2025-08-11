@@ -4,9 +4,9 @@ name: Documentation
 on:
   push:
     branches:
-      - dev
+      - '*-dev'
     paths:
-      - docs/**
+      - 'docs/**'
 
 
 jobs:
