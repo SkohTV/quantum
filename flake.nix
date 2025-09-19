@@ -1,18 +1,23 @@
-{ outputs = { nixpkgs, ... }:
+{
+    stdenv,
+    cargo,
+    rustc,
+    pkg-config,
+    openssl,
+}:
 
-let
-  allSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
 
-  forAllSystems = f: nixpkgs.lib.genAttrs allSystems (system: f {
-    pkgs = import nixpkgs { inherit system; };
-  });
+stdenv.mkDerivation {
+  pname = "quantum";
+  version = "6.x.x";
 
+  src = ./.;
 
-in {
-  devShells = forAllSystems ({ pkgs }: rec {
-    package = pkgs.callPackage ./default.nix { };
-    default = pkgs.mkShell { inputsFrom = [ package ]; };
-  });
-};
+  nativeBuildInputs = [
+    cargo
+    rustc
 
+    pkg-config
+    openssl.dev
+  ];
 }
