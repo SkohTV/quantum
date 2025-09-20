@@ -22,7 +22,7 @@ pub async fn post(
 ) -> Result<(), Error> {
 
     let msg = match kind {
-        Kind::Video => "Het @everyone, **Skoh** à posté une nouvelle vidéo !!",
+        Kind::Video => "Hey @everyone, **Skoh** à posté une nouvelle vidéo !!",
         Kind::Stream => "Hey @here, **Skoh** est en live !",
     };
 
