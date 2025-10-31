@@ -1,3 +1,5 @@
+use youtube::parser::test;
+
 mod consts;
 mod discord;
 mod youtube;
@@ -5,5 +7,6 @@ mod youtube;
 
 #[tokio::main]
 async fn main() {
-    discord::app::app().await;
+    // discord::app::app().await;
+    test().await;
 }

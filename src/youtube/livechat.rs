@@ -9,6 +9,11 @@ use tonic::Request;
 use crate::youtube::parser::parse_msg;
 use crate::youtube::{Author, Message};
 
+use chrono::{DateTime, Utc};
+
+use super::Livestream;
+
+
 
 pub mod stream_list {
     tonic::include_proto!("youtube.api.v3");
@@ -36,6 +41,18 @@ pub async fn chat_monitor(url: String) {
         .as_str()
         .unwrap()
         .to_string();
+
+    let starting_time = v["items"][0]["liveStreamingDetails"]["actualStartTime"]
+        .as_str()
+        .unwrap()
+        .to_string();
+
+    let dt: DateTime<Utc> = starting_time.parse().expect(format!("Converted {starting_time} to a datetime").as_str());
+
+    let livestream = Livestream {
+        id: url,
+        start_time: dt,
+    };
 
 
     // Open livechat gRPC
@@ -82,7 +99,7 @@ pub async fn chat_monitor(url: String) {
                     msg: msg,
                 };
 
-                parse_msg(author, message);
+                parse_msg(&livestream, author, message);
             }
 
             next_page_token = resp.next_page_token
