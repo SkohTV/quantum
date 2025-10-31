@@ -1,6 +1,8 @@
 # Build stage
 FROM rust:1.86 AS builder
 
+RUN apt-get update && apt-get install -y protobuf
+
 WORKDIR /quantum
 
 COPY src/ src

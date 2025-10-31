@@ -1,11 +1,11 @@
+
 use poise::serenity_prelude as serenity;
-use tokio::task;
-use crate::{discord::{ids, Context, Error}, youtube::livechat::chat_monitor};
+use crate::discord::{Context, Error, ids};
 
 #[poise::command(
     slash_command,
     rename="ytb",
-    subcommands("post", "join"),
+    subcommands("post"),
     subcommand_required
 )]
 pub async fn cmd(_: Context<'_>) -> Result<(), Error> { Ok(()) }
@@ -32,22 +32,6 @@ pub async fn post(
         .await?;
 
     ctx.say(format!("✔ Message sent in <#{}>", ids::VIDEO_CHANNEL)).await?;
-
-    Ok(())
-}
-
-
-#[poise::command(slash_command)]
-pub async fn join(
-    ctx: Context<'_>,
-    #[description = "Youtube livestream URL"] url: String
-) -> Result<(), Error> {
-
-    {
-        let _handle = task::spawn( chat_monitor(url.clone()) );
-    }
-
-    ctx.say(format!("✔ Joined https://youtube.com/watch?v={} livestream", url.clone())).await?;
 
     Ok(())
 }

@@ -1,23 +1,35 @@
 {
-    stdenv,
-    cargo,
-    rustc,
-    pkg-config,
-    openssl,
+
+inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+};
+
+
+outputs = {
+  self,
+  nixpkgs,
+  flake-utils,
 }:
 
 
-stdenv.mkDerivation {
-  pname = "quantum";
-  version = "6.x.x";
+flake-utils.lib.eachDefaultSystem (system:
 
-  src = ./.;
+    let
+        pkgs = nixpkgs.legacyPackages.${system};
+        quantum = pkgs.callPackage ./default.nix { };
 
-  nativeBuildInputs = [
-    cargo
-    rustc
+    in {
+        packages = {
+            inherit quantum;
+            default = quantum;
+        };
 
-    pkg-config
-    openssl.dev
-  ];
+        devShells = {
+            default = pkgs.mkShell { inputsFrom = [ quantum ]; };
+        };
+    }
+);
+
+
 }
