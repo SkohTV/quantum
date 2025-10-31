@@ -6,6 +6,9 @@ use stream_list::{LiveChatMessageListRequest};
 use tonic::metadata::MetadataValue;
 use tonic::transport::Channel;
 use tonic::Request;
+use crate::youtube::parser::parse_msg;
+use crate::youtube::{Author, Message};
+
 
 pub mod stream_list {
     tonic::include_proto!("youtube.api.v3");
@@ -54,7 +57,7 @@ pub async fn chat_monitor(url: String) {
             profile_image_size: None,
             max_results: Some(20),
             page_token: next_page_token.clone(),
-            part: vec!["snippet".to_string()],
+            part: vec!["snippet".to_string(), "authorDetails".to_string()],
         };
 
         let mut request = Request::new(msg_req);
@@ -68,7 +71,18 @@ pub async fn chat_monitor(url: String) {
             for item in resp.items {
                 let Some(snippet) = item.snippet else { continue };
                 let Some(msg) = snippet.display_message else { continue };
-                println!("{}", msg);
+                let Some(author) = item.author_details else { continue };
+
+                let author = Author {
+                    is_moderator: author.is_chat_moderator.unwrap_or(false),
+                    username: author.display_name.unwrap_or("Anonymous".to_string()),
+                };
+
+                let message = Message {
+                    msg: msg,
+                };
+
+                parse_msg(author, message);
             }
 
             next_page_token = resp.next_page_token

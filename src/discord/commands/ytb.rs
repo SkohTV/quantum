@@ -5,7 +5,7 @@ use crate::{discord::{ids, Context, Error}, youtube::livechat::chat_monitor};
 #[poise::command(
     slash_command,
     rename="ytb",
-    subcommands("post", "join"),
+    subcommands("post", "join", "leave"),
     subcommand_required
 )]
 pub async fn cmd(_: Context<'_>) -> Result<(), Error> { Ok(()) }
@@ -44,10 +44,39 @@ pub async fn join(
 ) -> Result<(), Error> {
 
     {
-        let _handle = task::spawn( chat_monitor(url.clone()) );
+        let handle = task::spawn( chat_monitor(url.clone()) );
+        let mut joined_livechat = ctx.data().joined_livechat.lock().unwrap();
+
+        if joined_livechat.is_some() {
+            joined_livechat.as_ref().unwrap().abort();
+        }
+
+        *joined_livechat = Some(handle);
+
     }
 
     ctx.say(format!("✔ Joined https://youtube.com/watch?v={} livestream", url.clone())).await?;
+
+    Ok(())
+}
+
+
+#[poise::command(slash_command)]
+pub async fn leave(
+    ctx: Context<'_>,
+) -> Result<(), Error> {
+
+    {
+        let mut joined_livechat = ctx.data().joined_livechat.lock().unwrap();
+
+        if joined_livechat.is_some() {
+            joined_livechat.as_ref().unwrap().abort();
+            *joined_livechat = None;
+        }
+
+    }
+
+    ctx.say("✔ Left current livestream").await?;
 
     Ok(())
 }

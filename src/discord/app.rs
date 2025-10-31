@@ -1,3 +1,5 @@
+use std::sync::Mutex;
+
 use poise::serenity_prelude as serenity;
 use crate::discord::{commands, framework, ids, Data, Handler};
 use crate::consts;
@@ -39,7 +41,9 @@ pub async fn app() {
                 poise::builtins::register_in_guild(ctx, &framework.options().commands, main_guild)
                     .await?;
 
-                Ok(Data {})
+                Ok(Data {
+                    joined_livechat: Mutex::new(None)
+                })
             })
         })
         .build();
