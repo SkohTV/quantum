@@ -1,8 +1,20 @@
 // use tokio::{task, time};
 // use std::time::Duration;
-// use poise::serenity_prelude as serenity;
+use poise::serenity_prelude as serenity;
+use tokio::sync::mpsc::Receiver;
 
 mod ytb_clip;
+
+
+
+pub enum Task {
+    YoutubeClip {
+        url: String,
+        name: String,
+        author: String,
+    }
+}
+
 
 
 // CHANGE TIME TO MPSC (tokio)
@@ -29,6 +41,12 @@ mod ytb_clip;
 // }
 
 
-// pub fn start_tasks<'a>(_ctx: serenity::Context){
-//     create_task!(cluster_embeds::task, ctx, 60);
-// }
+pub async fn start_tasks<'a>(_ctx: serenity::Context, mut rx: Receiver<Task>){
+    // create_task!(cluster_embeds::task, ctx, 60);
+
+    while let Some(task) = rx.recv().await {
+        match task {
+            Task::YoutubeClip { url, name, author } => println!("RECEIVED"),
+        }
+    }
+}

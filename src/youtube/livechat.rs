@@ -6,8 +6,10 @@ use stream_list::{LiveChatMessageListRequest};
 use tonic::metadata::MetadataValue;
 use tonic::transport::Channel;
 use tonic::Request;
+use crate::discord::tasks::Task;
 use crate::youtube::parser::parse_msg;
 use crate::youtube::{Author, Message};
+use tokio::sync::mpsc::Sender;
 
 use chrono::{DateTime, Utc};
 
@@ -20,7 +22,7 @@ pub mod stream_list {
 }
 
 
-pub async fn chat_monitor(url: String) {
+pub async fn chat_monitor(url: String, tx: Sender<Task>) {
 
     let api_key = std::env::var("YOUTUBE_TOKEN").expect("Youtube API key not found");
     
@@ -99,7 +101,7 @@ pub async fn chat_monitor(url: String) {
                     msg: msg,
                 };
 
-                parse_msg(&livestream, author, message);
+                parse_msg(tx.clone(), &livestream, author, message);
             }
 
             next_page_token = resp.next_page_token

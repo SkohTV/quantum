@@ -44,8 +44,10 @@ pub async fn join(
 ) -> Result<(), Error> {
 
     {
-        let handle = task::spawn( chat_monitor(url.clone()) );
         let mut joined_livechat = ctx.data().joined_livechat.lock().unwrap();
+        let task_tx = ctx.data().task_tx.lock().unwrap();
+
+        let handle = task::spawn( chat_monitor(url.clone(), task_tx.clone()) );
 
         if joined_livechat.is_some() {
             joined_livechat.as_ref().unwrap().abort();

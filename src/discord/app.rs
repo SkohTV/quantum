@@ -1,7 +1,8 @@
 use std::sync::Mutex;
 
+use tokio::sync::mpsc;
 use poise::serenity_prelude as serenity;
-use crate::discord::{commands, framework, ids, Data, Handler};
+use crate::discord::{commands, framework, ids, tasks, Data, Handler};
 use crate::consts;
 
 
@@ -33,7 +34,13 @@ pub async fn app() {
     let framework = poise::Framework::builder()
         .options(options)
         .setup(|ctx, _ready, framework| {
-            // tasks::start_tasks(ctx.clone());
+
+            let (tx, mut rx) = mpsc::channel(32);
+
+            tokio::task::spawn(
+                tasks::start_tasks(ctx.clone(), rx)
+            );
+            
 
             Box::pin(async move {
                 let main_guild = serenity::GuildId::from(ids::GUILD_ID);
@@ -42,7 +49,8 @@ pub async fn app() {
                     .await?;
 
                 Ok(Data {
-                    joined_livechat: Mutex::new(None)
+                    joined_livechat: Mutex::new(None),
+                    task_tx: Mutex::new(tx),
                 })
             })
         })

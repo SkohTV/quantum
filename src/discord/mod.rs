@@ -1,5 +1,7 @@
 use std::sync::Mutex;
+use tasks::Task;
 use tokio::task::JoinHandle;
+use tokio::sync::mpsc::Sender;
 
 pub mod app;
 pub mod framework;
@@ -8,12 +10,13 @@ pub mod utils;
 
 pub mod commands;
 pub mod events;
-// pub mod tasks;
+pub mod tasks;
 
 
 
 pub struct Data {
-    joined_livechat: Mutex<Option<JoinHandle<()>>>
+    joined_livechat: Mutex<Option<JoinHandle<()>>>,
+    task_tx: Mutex<Sender<Task>>,
 }
 
 pub type Error = Box<dyn std::error::Error + Send + Sync>;

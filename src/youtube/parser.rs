@@ -1,10 +1,13 @@
+use std::{thread::sleep, time::Duration};
+
 use chrono::{TimeDelta, Utc};
+use tokio::sync::mpsc::Sender;
 
-use crate::youtube::{commands::clip::clip, Author, Livestream, Message};
+use crate::{discord::tasks::Task, youtube::{commands::clip::clip, Author, Livestream, Message}};
 
 
 
-pub async fn parse_msg(livestream: &Livestream, author: Author, message: Message) {
+pub async fn parse_msg(tx: Sender<Task>, livestream: &Livestream, author: Author, message: Message) {
 
     if ! message.msg.starts_with("!") {
         return;
@@ -15,7 +18,7 @@ pub async fn parse_msg(livestream: &Livestream, author: Author, message: Message
     let msg = it[1];
 
     match command {
-        "clip" => clip(livestream, author, &msg).await,
+        "clip" => clip(tx, livestream, author, &msg).await,
         _ => return,
     }
 }
@@ -23,20 +26,22 @@ pub async fn parse_msg(livestream: &Livestream, author: Author, message: Message
 
 
 
-pub async fn test() {
-    let a = Livestream {
-        id: "0".to_string(),
-        start_time: Utc::now(),
-    };
-
-    let b = Author {
-        username: "skoh".to_string(),
-        is_moderator: true,
-    };
-
-    let c = Message {
-        msg: "!clip Omg that's so cool".to_string(),
-    };
-
-    parse_msg(&a, b, c).await;
-}
+// pub async fn test() {
+//     sleep(Duration::from_secs(5));
+//
+//     let a = Livestream {
+//         id: "0".to_string(),
+//         start_time: Utc::now(),
+//     };
+//
+//     let b = Author {
+//         username: "skoh".to_string(),
+//         is_moderator: true,
+//     };
+//
+//     let c = Message {
+//         msg: "!clip Omg that's so cool".to_string(),
+//     };
+//
+//     parse_msg(&a, b, c).await;
+// }
