@@ -23,20 +23,20 @@ Commands:
 `/ping` -> Send the discord websocket delay<br>
 
 `/ytb post type=... url=...` -> Post a video/stream in an announcement channel<br>
-`/ytb monitor url=...` -> monitor an upcoming livestream to edit a discord event #todo<br>
-`/ytb join url=...` -> join and monitor a livestream chat (ref [youtube](#Youtube)) #wip<br>
+`/ytb monitor url=...` -> monitor an upcoming livestream to edit a discord event `#todo`<br>
+`/ytb join url=...` -> join and monitor a livestream chat (ref [youtube](#youtube)) `#wip`<br>
 
-`/archive #channel` #todo<br>
+`/archive #channel` `#todo`<br>
 
 Events:<br>
 `On new member -> Add role @member`<br>
 
 Timers:<br>
-\* Discord events for streams (cf ytb monitor) #todo<br>
+\* Discord events for streams (cf ytb monitor) `#todo`<br>
 
 
 ### Youtube
-`!clip [name]` -> create a clip and send in clips channel #wip<br>
-`!ping` -> ping #todo<br>
-`!help` -> https://quantum.skoh.dev/youtube #todo<br>
-`!join` -> discord link #todo<br>
+`!clip [name]` -> create a clip and send in clips channel `#wip`<br>
+`!ping` -> ping `#todo`<br>
+`!help` -> https://quantum.skoh.dev/youtube `#todo`<br>
+`!join` -> discord link `#todo`<br>
