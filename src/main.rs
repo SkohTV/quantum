@@ -9,8 +9,9 @@ mod youtube;
 async fn main() {
     // discord::app::app().await;
 
-    let _  = join!(
-        discord::app::app(),
-        // test()
-    );
+    // let _  = join!(
+    //     discord::app::app(),
+    // );
+
+    discord::app::app().await;
 }
