@@ -31,17 +31,6 @@ jobs:
           curl -sSL $url | tar -xz --directory=./mdbook
           echo `pwd`/mdbook >> $GITHUB_PATH
 
-      - name: Install chrome
-        uses: browser-actions/setup-chrome@v2
-        id: setup-chrome
-
-      - uses: skohtv/excalidraw-exporter@v1
-        with:
-          pattern: docs/**/*.excalidraw 
-          chromePath: ${{ steps.setup-chrome.outputs.chrome-path }}
-          exportBackground: false
-          exportWithDarkMode: true
-
       - name: Build Book
         run: |
           cd docs && mdbook build
