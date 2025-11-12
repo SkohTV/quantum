@@ -3,3 +3,7 @@ authors = ["SkohTV"]
 language = "en"
 src = "src"
 title = "Quantum"
+
+[output.html]
+git-repository-url = "https://github.com/SkohTV/quantum"
+
