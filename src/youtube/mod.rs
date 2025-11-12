@@ -1,9 +1,8 @@
 use chrono::{DateTime, Utc};
 
+pub mod commands;
 pub mod livechat;
 pub mod parser;
-pub mod commands;
-
 
 pub struct Livestream {
     id: String,
@@ -16,5 +15,5 @@ pub struct Author {
 }
 
 pub struct Message {
-    msg: String
+    msg: String,
 }

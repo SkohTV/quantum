@@ -1,7 +1,7 @@
 use std::sync::Mutex;
 use tasks::Task;
-use tokio::task::JoinHandle;
 use tokio::sync::mpsc::Sender;
+use tokio::task::JoinHandle;
 
 pub mod app;
 pub mod framework;
@@ -11,8 +11,6 @@ pub mod utils;
 pub mod commands;
 pub mod events;
 pub mod tasks;
-
-
 
 pub struct Data {
     joined_livechat: Mutex<Option<JoinHandle<()>>>,

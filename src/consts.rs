@@ -1,11 +1,13 @@
 pub enum Mode {
-   DEV, 
-   RELEASE,
+    DEV,
+    RELEASE,
 }
 
-
-pub const MODE: Mode = if cfg!(debug_assertions) { Mode::DEV } else { Mode::RELEASE };
-
+pub const MODE: Mode = if cfg!(debug_assertions) {
+    Mode::DEV
+} else {
+    Mode::RELEASE
+};
 
 pub fn version() -> String {
     let major = env!("CARGO_PKG_VERSION_MAJOR");

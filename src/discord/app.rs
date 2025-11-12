@@ -1,17 +1,16 @@
 use std::sync::Mutex;
 
-use tokio::sync::mpsc;
-use poise::serenity_prelude as serenity;
-use crate::discord::{commands, framework, ids, tasks, Data, Handler};
 use crate::consts;
-
+use crate::discord::{Data, Handler, commands, framework, ids, tasks};
+use poise::serenity_prelude as serenity;
+use tokio::sync::mpsc;
 
 pub async fn app() {
-
     let token = match consts::MODE {
         consts::Mode::DEV => std::env::var("DISCORD_TOKEN_DEV"),
         consts::Mode::RELEASE => std::env::var("DISCORD_TOKEN_RELEASE"),
-    }.expect("Discord token not found");
+    }
+    .expect("Discord token not found");
 
     let intents = serenity::GatewayIntents::GUILD_MEMBERS | serenity::GatewayIntents::GUILDS;
 
@@ -19,10 +18,7 @@ pub async fn app() {
     let activity = serenity::ActivityData::playing(consts::version());
 
     let options = poise::FrameworkOptions {
-        commands: vec![
-            commands::ping::cmd(),
-            commands::ytb::cmd(),
-        ],
+        commands: vec![commands::ping::cmd(), commands::ytb::cmd()],
 
         post_command: |ctx| Box::pin(framework::post_command(ctx)),
         on_error: |err| Box::pin(framework::on_error(err)),
@@ -34,13 +30,9 @@ pub async fn app() {
     let framework = poise::Framework::builder()
         .options(options)
         .setup(|ctx, _ready, framework| {
-
             let (tx, mut rx) = mpsc::channel(32);
 
-            tokio::task::spawn(
-                tasks::start_tasks(ctx.clone(), rx)
-            );
-            
+            tokio::task::spawn(tasks::start_tasks(ctx.clone(), rx));
 
             Box::pin(async move {
                 let main_guild = serenity::GuildId::from(ids::GUILD_ID);

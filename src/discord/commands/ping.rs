@@ -1,13 +1,8 @@
 use crate::discord::{Context, Error};
 
-
 /// Display the latency of the bot
-#[poise::command(
-    slash_command,
-    rename="ping",
-)]
+#[poise::command(slash_command, rename = "ping")]
 pub async fn cmd(ctx: Context<'_>) -> Result<(), Error> {
-
     let text = format!("⌛ Loading...");
 
     // Discord ping
@@ -17,8 +12,7 @@ pub async fn cmd(ctx: Context<'_>) -> Result<(), Error> {
     let discord_status = format!("Discord Websocket ⇒ `{}ms`", elapsed.as_millis());
 
     // Send msg
-    let msg = poise::CreateReply::default()
-        .content(format!("{}", discord_status));
+    let msg = poise::CreateReply::default().content(format!("{}", discord_status));
 
     discord_response.edit(ctx, msg).await?;
 

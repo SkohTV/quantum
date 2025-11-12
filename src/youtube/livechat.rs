@@ -1,35 +1,33 @@
 use std::str::FromStr;
 
-use serde_json::Value;
-use stream_list::v3_data_live_chat_message_service_client::V3DataLiveChatMessageServiceClient;
-use stream_list::{LiveChatMessageListRequest};
-use tonic::metadata::MetadataValue;
-use tonic::transport::Channel;
-use tonic::Request;
 use crate::discord::tasks::Task;
 use crate::youtube::parser::parse_msg;
 use crate::youtube::{Author, Message};
+use serde_json::Value;
+use stream_list::LiveChatMessageListRequest;
+use stream_list::v3_data_live_chat_message_service_client::V3DataLiveChatMessageServiceClient;
 use tokio::sync::mpsc::Sender;
+use tonic::Request;
+use tonic::metadata::MetadataValue;
+use tonic::transport::Channel;
 
 use chrono::{DateTime, Utc};
 
 use super::Livestream;
 
-
-
 pub mod stream_list {
     tonic::include_proto!("youtube.api.v3");
 }
 
-
 pub async fn chat_monitor(url: String, tx: Sender<Task>) {
-
     let api_key = std::env::var("YOUTUBE_TOKEN").expect("Youtube API key not found");
-    
+
     // Get the livechat ID
     let client = reqwest::Client::new();
     let res = client
-        .get(format!("https://www.googleapis.com/youtube/v3/videos?part=liveStreamingDetails&id={url}"))
+        .get(format!(
+            "https://www.googleapis.com/youtube/v3/videos?part=liveStreamingDetails&id={url}"
+        ))
         .header("x-goog-api-key", &api_key)
         .send()
         .await
@@ -49,18 +47,20 @@ pub async fn chat_monitor(url: String, tx: Sender<Task>) {
         .unwrap()
         .to_string();
 
-    let dt: DateTime<Utc> = starting_time.parse().expect(format!("Converted {starting_time} to a datetime").as_str());
+    let dt: DateTime<Utc> = starting_time
+        .parse()
+        .expect(format!("Converted {starting_time} to a datetime").as_str());
 
     let livestream = Livestream {
         id: url,
         start_time: dt,
     };
 
-
     // Open livechat gRPC
     let addr = "https://youtube.googleapis.com";
     let channel = Channel::from_static(addr)
-        .tls_config(tonic::transport::ClientTlsConfig::new().with_native_roots()).unwrap()
+        .tls_config(tonic::transport::ClientTlsConfig::new().with_native_roots())
+        .unwrap()
         .connect()
         .await
         .unwrap();
@@ -88,18 +88,22 @@ pub async fn chat_monitor(url: String, tx: Sender<Task>) {
 
         while let Some(resp) = stream.message().await.unwrap() {
             for item in resp.items {
-                let Some(snippet) = item.snippet else { continue };
-                let Some(msg) = snippet.display_message else { continue };
-                let Some(author) = item.author_details else { continue };
+                let Some(snippet) = item.snippet else {
+                    continue;
+                };
+                let Some(msg) = snippet.display_message else {
+                    continue;
+                };
+                let Some(author) = item.author_details else {
+                    continue;
+                };
 
                 let author = Author {
                     is_moderator: author.is_chat_moderator.unwrap_or(false),
                     username: author.display_name.unwrap_or("Anonymous".to_string()),
                 };
 
-                let message = Message {
-                    msg: msg,
-                };
+                let message = Message { msg: msg };
 
                 parse_msg(tx.clone(), &livestream, author, message);
             }

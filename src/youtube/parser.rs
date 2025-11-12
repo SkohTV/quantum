@@ -3,13 +3,18 @@ use std::{thread::sleep, time::Duration};
 use chrono::{TimeDelta, Utc};
 use tokio::sync::mpsc::Sender;
 
-use crate::{discord::tasks::Task, youtube::{commands::clip::clip, Author, Livestream, Message}};
+use crate::{
+    discord::tasks::Task,
+    youtube::{Author, Livestream, Message, commands::clip::clip},
+};
 
-
-
-pub async fn parse_msg(tx: Sender<Task>, livestream: &Livestream, author: Author, message: Message) {
-
-    if ! message.msg.starts_with("!") {
+pub async fn parse_msg(
+    tx: Sender<Task>,
+    livestream: &Livestream,
+    author: Author,
+    message: Message,
+) {
+    if !message.msg.starts_with("!") {
         return;
     }
 
@@ -22,9 +27,6 @@ pub async fn parse_msg(tx: Sender<Task>, livestream: &Livestream, author: Author
         _ => return,
     }
 }
-
-
-
 
 // pub async fn test() {
 //     sleep(Duration::from_secs(5));

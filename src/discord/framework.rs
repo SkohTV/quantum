@@ -1,7 +1,6 @@
 use crate::consts;
-use crate::discord::{ids, utils, Context, Data, Error};
+use crate::discord::{Context, Data, Error, ids, utils};
 use poise::serenity_prelude as serenity;
-
 
 pub async fn on_error(error: poise::FrameworkError<'_, Data, Error>) {
     match error {
@@ -32,7 +31,6 @@ pub async fn on_error(error: poise::FrameworkError<'_, Data, Error>) {
     }
 }
 
-
 pub async fn post_command(ctx: Context<'_>) {
     let msg = format!(
         "{} in <#{}>\n➜ `/{}`\nSuccess",
@@ -44,11 +42,9 @@ pub async fn post_command(ctx: Context<'_>) {
     utils::log_to_discord(&ctx, msg, utils::LogRole::Success).await;
 }
 
-
 pub async fn command_check(
     ctx: Context<'_>,
 ) -> Result<bool, Box<dyn std::error::Error + Send + Sync>> {
-
     // Channel check
     let channels = match consts::MODE {
         consts::Mode::DEV => vec![ids::PRIVATE_BOT_CHANNEL],

@@ -5,23 +5,16 @@ use tokio::sync::mpsc::Receiver;
 
 mod ytb_clip;
 
-
-
 pub enum Task {
     YoutubeClip {
         url: String,
         name: String,
         author: String,
-    }
+    },
 }
-
-
 
 // CHANGE TIME TO MPSC (tokio)
 // https://tokio.rs/tokio/tutorial/channels
-
-
-
 
 // macro_rules! create_task {
 //     ($fun:expr, $ctx:ident, $delay:literal) => {
@@ -40,8 +33,7 @@ pub enum Task {
 //     };
 // }
 
-
-pub async fn start_tasks<'a>(_ctx: serenity::Context, mut rx: Receiver<Task>){
+pub async fn start_tasks<'a>(_ctx: serenity::Context, mut rx: Receiver<Task>) {
     // create_task!(cluster_embeds::task, ctx, 60);
 
     while let Some(task) = rx.recv().await {
