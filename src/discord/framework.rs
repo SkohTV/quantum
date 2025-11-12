@@ -4,7 +4,9 @@ use poise::serenity_prelude as serenity;
 
 pub async fn on_error(error: poise::FrameworkError<'_, Data, Error>) {
     match error {
-        poise::FrameworkError::Setup { error, .. } => panic!("Failed to start bot: {:?}", error),
+        poise::FrameworkError::Setup { error, .. } => {
+            panic!("Failed to start bot: {:?}", error)
+        }
         poise::FrameworkError::Command { error, ctx, .. } => {
             let msg = format!(
                 "{} in <#{}>\n➜ `/{}`\n\n```{}```",
@@ -48,7 +50,9 @@ pub async fn command_check(
     // Channel check
     let channels = match consts::MODE {
         consts::Mode::DEV => vec![ids::PRIVATE_BOT_CHANNEL],
-        consts::Mode::RELEASE => vec![ids::PUBLIC_BOT_CHANNEL, ids::PRIVATE_BOT_CHANNEL],
+        consts::Mode::RELEASE => {
+            vec![ids::PUBLIC_BOT_CHANNEL, ids::PRIVATE_BOT_CHANNEL]
+        }
     };
 
     let channels = channels

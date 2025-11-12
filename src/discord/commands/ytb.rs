@@ -56,13 +56,13 @@ pub async fn join(
         let mut joined_livechat = ctx.data().joined_livechat.lock().unwrap();
         let task_tx = ctx.data().task_tx.lock().unwrap();
 
-        let handle = task::spawn(chat_monitor(livestream_id.clone(), task_tx.clone()));
+        let hndl = task::spawn(chat_monitor(livestream_id.clone(), task_tx.clone()));
 
         if joined_livechat.is_some() {
             joined_livechat.as_ref().unwrap().abort();
         }
 
-        *joined_livechat = Some(handle);
+        *joined_livechat = Some(hndl);
     }
 
     ctx.say(format!(

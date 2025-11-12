@@ -12,7 +12,8 @@ pub async fn app() {
     }
     .expect("Discord token not found");
 
-    let intents = serenity::GatewayIntents::GUILD_MEMBERS | serenity::GatewayIntents::GUILDS;
+    let intents =
+        serenity::GatewayIntents::GUILD_MEMBERS | serenity::GatewayIntents::GUILDS;
 
     let status = serenity::OnlineStatus::Online;
     let activity = serenity::ActivityData::playing(consts::version());
@@ -37,8 +38,12 @@ pub async fn app() {
             Box::pin(async move {
                 let main_guild = serenity::GuildId::from(ids::GUILD_ID);
 
-                poise::builtins::register_in_guild(ctx, &framework.options().commands, main_guild)
-                    .await?;
+                poise::builtins::register_in_guild(
+                    ctx,
+                    &framework.options().commands,
+                    main_guild,
+                )
+                .await?;
 
                 Ok(Data {
                     joined_livechat: Mutex::new(None),

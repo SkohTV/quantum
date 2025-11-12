@@ -4,7 +4,11 @@ use serenity::async_trait;
 
 #[async_trait]
 impl serenity::EventHandler for Handler {
-    async fn guild_member_addition(&self, ctx: serenity::Context, new_member: serenity::Member) {
+    async fn guild_member_addition(
+        &self,
+        ctx: serenity::Context,
+        new_member: serenity::Member,
+    ) {
         let role = serenity::RoleId::from(ids::MEMBER_ROLE);
         let _ = new_member.add_role(&ctx, role).await;
 

@@ -4,7 +4,12 @@ use crate::discord::tasks::Task;
 use crate::youtube::{Author, Livestream};
 use tokio::sync::mpsc::Sender;
 
-pub async fn clip(tx: Sender<Task>, livestream: &Livestream, author: Author, clip_name: &str) {
+pub async fn clip(
+    tx: Sender<Task>,
+    livestream: &Livestream,
+    author: Author,
+    clip_name: &str,
+) {
     let backtrack = TimeDelta::seconds(20);
 
     let now = Utc::now() - backtrack;
@@ -14,7 +19,10 @@ pub async fn clip(tx: Sender<Task>, livestream: &Livestream, author: Author, cli
     let _ = tx
         .send(Task::YoutubeClip {
             author: author.username,
-            url: format!("https://youtube.com/watch?v={}&t={}s", livestream.id, diff),
+            url: format!(
+                "https://youtube.com/watch?v={}&t={}s",
+                livestream.id, diff
+            ),
             name: clip_name.to_string(),
         })
         .await;

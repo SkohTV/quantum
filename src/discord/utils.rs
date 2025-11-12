@@ -18,8 +18,10 @@ pub fn default_embed() -> serenity::CreateEmbed {
         .url("https://github.com/SkohTV/quantum/")
         .icon_url(pfp);
 
-    let footer =
-        serenity::CreateEmbedFooter::new(format!("Running on version {}", consts::version()));
+    let footer = serenity::CreateEmbedFooter::new(format!(
+        "Running on version {}",
+        consts::version()
+    ));
 
     serenity::CreateEmbed::default()
         .author(author)
