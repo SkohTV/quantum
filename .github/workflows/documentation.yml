@@ -32,7 +32,7 @@ jobs:
           echo `pwd`/mdbook >> $GITHUB_PATH
 
       - name: Install mdbook-admonish
-        run: cargo install mdbook-admonish --vers 3.1.0 --locked
+        run: cargo install mdbook-admonish --locked
 
       - name: Build Book
         run: |
