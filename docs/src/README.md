@@ -6,8 +6,8 @@
 
 This is the documentation for **Quantum**, my personnal Discord bot  
 It has integration for
-- [Discord](./discord/_root.md)
-- [YouTube](./youtube/_root.md)
+- [Discord](./discord/README.md)
+- [YouTube](./youtube/README.md)
 - Nitrado (wip)
 
 You can find here a list of available commands and feature  

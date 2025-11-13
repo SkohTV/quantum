@@ -1,10 +1,10 @@
 # Summary
 
-[Introduction](./root.md)
+[Introduction](./README.md)
 
 
 # Usage
-- [Discord](./discord/_root.md)
+- [Discord](./discord/README.md)
     - [ping](./discord/ping.md)
     - [archive](./discord/archive.md)
     - [ytb]()
@@ -12,7 +12,7 @@
         - [ytb monitor](./discord/ytb-monitor.md)
         - [ytb join](./discord/ytb-join.md)
 
-- [YouTube](./youtube/_root.md)
+- [YouTube](./youtube/README.md)
     - [ping](./youtube/ping.md)
     - [help](./youtube/help.md)
     - [clip](./youtube/clip.md)
@@ -20,7 +20,7 @@
 
 
 # Internals
-- [Reference](./internals/_root.md)
+- [Reference](./internals/README.md)
     - [Contributing](./internals/contributing.md)
     - [Discord](./internals/discord.md)
     - [YouTube](./internals/youtube.md)
