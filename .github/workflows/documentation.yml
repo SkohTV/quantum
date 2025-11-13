@@ -26,6 +26,17 @@ jobs:
       - name: Install mdbook-admonish
         run: cargo install mdbook mdbook-admonish
 
+      - name: Install chrome
+        uses: browser-actions/setup-chrome@v2
+        id: setup-chrome
+
+      - uses: skohtv/excalidraw-exporter@v1
+        with:
+          pattern: docs/**/*.excalidraw 
+          chromePath: ${{ steps.setup-chrome.outputs.chrome-path }}
+          exportBackground: false
+          exportWithDarkMode: true
+
       - name: Build Book
         run: |
           cd docs && mdbook build
@@ -41,3 +52,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
