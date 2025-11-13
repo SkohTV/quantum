@@ -1,5 +1,5 @@
 # `ytb join`
-Join and monitor a livestream chat (check [YouTube](../youtube/README.md) for available commands)
+Join and monitor a livestream chat (check [YouTube](../youtube) for available commands)
 
 ```admonish warning
 This is actively work in progress
