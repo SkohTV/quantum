@@ -31,6 +31,9 @@ jobs:
           curl -sSL $url | tar -xz --directory=./mdbook
           echo `pwd`/mdbook >> $GITHUB_PATH
 
+      - name: Install mdbook-admonish
+        run: cargo install mdbook-admonish
+
       - name: Build Book
         run: |
           cd docs && mdbook build
