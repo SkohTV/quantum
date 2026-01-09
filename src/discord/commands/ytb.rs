@@ -36,7 +36,7 @@ pub async fn post(
     };
 
     let _ = serenity::ChannelId::from(ids::VIDEO_CHANNEL)
-        .say(ctx, format!("{msg}\n\n▷ {url}"))
+        .say(ctx, format!("{msg}\n\n**▷** {url}"))
         .await?;
 
     ctx.say(format!("✔ Message sent in <#{}>", ids::VIDEO_CHANNEL))
