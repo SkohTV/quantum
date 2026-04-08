@@ -10,13 +10,14 @@ pub const MODE: Mode = if cfg!(debug_assertions) {
 };
 
 pub fn version() -> String {
-    let major = env!("CARGO_PKG_VERSION_MAJOR");
+    // let major = env!("CARGO_PKG_VERSION_MAJOR");
     let minor = env!("CARGO_PKG_VERSION_MINOR");
+    let patch = env!("CARGO_PKG_VERSION_PATCH");
 
     let mode = match MODE {
         Mode::DEV => "dev",
         Mode::RELEASE => "release",
     };
 
-    format!("{major}.{minor}-{mode}")
+    format!("{minor}.{patch}-{mode}")
 }
