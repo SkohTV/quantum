@@ -1,11 +1,12 @@
 # Build stage
 FROM rust:1.86 AS builder
 
-RUN apt-get update && apt-get install -y protobuf
+RUN apt-get update && apt-get install -y protobuf-compiler
 
 WORKDIR /quantum
 
 COPY src/ src
+COPY build.rs .
 COPY Cargo.lock .
 COPY Cargo.toml .
 
