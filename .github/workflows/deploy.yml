@@ -4,7 +4,7 @@ name: Deploy on VPS
 on:
   push:
     tags:
-      - v[0-9]+.[0-9]+.[0-9]+
+      - v[0-9]+.[0-9]+.[0-9]+*
 
 
 concurrency:
@@ -16,7 +16,12 @@ jobs:
 
   publish:
     name: Publish docker images
-    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-24.04-arm]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
